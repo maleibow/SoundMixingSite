@@ -104,8 +104,8 @@
                     </div>
                 </div>
 
-                <!-- NYT Cooking - 4 Camping Recipes (PINNED #1) -->
-                <div class="group flex flex-col gap-3" data-pinned="1">
+                <!-- NYT Cooking - 4 Camping Recipes (Part of NYT Pool) -->
+                <div class="group flex flex-col gap-3" data-category="nyt">
                     <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
                         <iframe src="https://www.youtube.com/embed/x-FAcUxFqSk" title="NYT Cooking - 4 Camping Recipes" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
@@ -335,6 +335,28 @@
                     </div>
                 </div>
 
+                <!-- Volvo XC60 Walkaround -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/vEHaOUvyfLE" title="Volvo XC60 Walkaround" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Volvo XC60 Walkaround</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Martin Schoeller</p>
+                    </div>
+                </div>
+
+                <!-- Project by Alexander McMichael -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://player.vimeo.com/video/863783637" title="Project by Alexander McMichael" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Project by Alexander McMichael</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Alexander McMichael</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -447,18 +469,36 @@
         if (gallery) {
             const videos = Array.from(gallery.children);
             
+            let nytVideos = [];
             const pinnedVideos = [];
             const unpinnedVideos = [];
             
-            // Separate pinned and unpinned
+            // Separate NYT category, pinned, and unpinned
             videos.forEach(video => {
-                const pinOrder = video.getAttribute('data-pinned');
-                if (pinOrder) {
+                if (video.getAttribute('data-category') === 'nyt') {
+                    nytVideos.push(video);
+                } else if (video.getAttribute('data-pinned')) {
+                    const pinOrder = video.getAttribute('data-pinned');
                     pinnedVideos.push({ el: video, order: parseInt(pinOrder) });
                 } else {
                     unpinnedVideos.push(video);
                 }
             });
+            
+            // Randomly shuffle the NYT videos to pick one for the top slot
+            for (let i = nytVideos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [nytVideos[i], nytVideos[j]] = [nytVideos[j], nytVideos[i]];
+            }
+            
+            // Set the first randomized NYT video to be pinned at position #1
+            if (nytVideos.length > 0) {
+                const selectedNyt = nytVideos.shift(); // Takes the first one out of the array
+                pinnedVideos.push({ el: selectedNyt, order: 1 });
+            }
+            
+            // Move any remaining NYT videos to the regular unpinned pool
+            unpinnedVideos.push(...nytVideos);
             
             // Sort pinned videos exactly by their assigned order (1, 2, 3...)
             pinnedVideos.sort((a, b) => a.order - b.order);
