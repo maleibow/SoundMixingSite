@@ -1,19 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matt Leibowitz | Brooklyn Sound Engineer & Mixer</title>
-    <meta name="description" content="Portfolio of Matt Leibowitz, a New York and Brooklyn-based sound engineer, mixer, and musician. View sound work for WNBA, True Religion, Hot Ones, and more." />
-    <meta property="og:title" content="Matt Leibowitz | Brooklyn Sound Engineer & Mixer" />
-    <meta property="og:description" content="Portfolio of Matt Leibowitz, a New York and Brooklyn-based sound engineer, mixer, and musician. View sound work for WNBA, True Religion, Hot Ones, and more." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="description" content="Portfolio of Matt Leibowitz, a New York and Brooklyn-based sound engineer, mixer, and musician. View sound work for WNBA, True Religion, Hot Ones, and more.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E148NK2K26"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E148NK2K26');
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #09090b; }
+      ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    </style>
 
     <!-- SEO Schema -->
     <script type="application/ld+json">
@@ -33,9 +54,1264 @@
       ]
     }
     </script>
-  </head>
-  <body class="font-sans text-zinc-300 bg-zinc-950 min-h-screen selection:bg-zinc-700 selection:text-white antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+</head>
+<body class="text-zinc-300 bg-zinc-950 min-h-screen selection:bg-zinc-700 selection:text-white antialiased flex flex-col justify-between">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-40 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
+            <a href="#home" class="group flex flex-col focus:outline-none">
+                <span id="nav-brand-name" class="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-zinc-300 transition-colors">
+                    Matt Leibowitz
+                </span>
+                <span id="nav-brand-role" class="text-xs font-medium tracking-widest uppercase text-zinc-500 mt-0.5">Sound Engineer</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide">
+                <a href="#work" class="text-zinc-400 hover:text-white transition-colors">Work</a>
+                <a href="#about" class="text-zinc-400 hover:text-white transition-colors">About</a>
+                <a href="#contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
+
+                <!-- Admin Button (Hidden from public by default) -->
+                <div id="admin-nav-group" class="hidden items-center gap-2 pl-2 border-l border-zinc-800">
+                    <button id="open-editor-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-300 bg-amber-950/40 hover:bg-amber-950/70 border border-amber-900/60 rounded-md transition-colors cursor-pointer">
+                        <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+                        <span>Update Site</span>
+                    </button>
+                    <button id="exit-admin-btn" type="button" class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900 rounded-md transition-colors cursor-pointer">
+                        <i data-lucide="eye" class="w-3 h-3"></i>
+                        <span>Public View</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div class="flex items-center gap-2 md:hidden">
+                <button id="mobile-admin-btn" type="button" class="hidden items-center gap-1 px-2.5 py-1 text-xs font-medium text-amber-300 bg-amber-950/50 border border-amber-900/60 rounded-md">
+                    <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+                    <span>Update</span>
+                </button>
+                <button id="mobileMenuBtn" class="text-zinc-300 hover:text-white p-1" aria-label="Open menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-zinc-950 z-50 hidden flex-col items-center justify-center gap-8 text-2xl font-light">
+        <button id="closeMenuBtn" class="absolute top-6 right-6 text-zinc-400 hover:text-white p-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <a href="#work" class="mobile-link text-zinc-300 hover:text-white">Work</a>
+        <a href="#about" class="mobile-link text-zinc-300 hover:text-white">About</a>
+        <a href="#contact" class="mobile-link text-zinc-300 hover:text-white">Contact</a>
+
+        <div id="mobile-admin-drawer-group" class="hidden mt-4 pt-6 border-t border-zinc-900 flex-col items-center gap-3">
+            <button id="mobile-open-manager-btn" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-amber-300 bg-amber-950/40 border border-amber-900/60 rounded-lg">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                <span>Manage & Update Portfolio</span>
+            </button>
+            <button id="mobile-exit-admin-btn" type="button" class="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 pt-2">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                <span>Exit Edit Mode (Public View)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section id="home" class="pt-28 pb-8 md:pt-32 md:pb-12 px-6 md:px-8 max-w-7xl mx-auto group relative">
+            <div class="flex items-start justify-between gap-4">
+                <h1 id="hero-headline" class="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight leading-snug max-w-3xl text-zinc-100 text-balance">
+                    Brooklyn based sound engineer and musician specializing in high-quality production audio and post-mixing.
+                </h1>
+                <button id="hero-edit-btn" type="button" class="hidden opacity-0 group-hover:opacity-100 transition-opacity p-2 text-zinc-500 hover:text-zinc-300 rounded hover:bg-zinc-900 shrink-0" title="Edit headline">
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">Selected Work</h2>
+                            <span id="works-count" class="text-xs font-mono text-zinc-500 tabular-nums"></span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-1">
+                            Production sound mixing, location audio, and post-production sound design.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button id="shuffle-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 rounded-md transition-colors cursor-pointer" title="Shuffle unpinned works (preserves pinned #1 NYT, #2 Totino's, #3 Trantolo)">
+                            <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                            <span>Shuffle Order</span>
+                        </button>
+                        <button id="add-work-btn" type="button" class="hidden items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-300 hover:text-white bg-amber-950/40 hover:bg-amber-950/70 border border-amber-900/60 rounded-md transition-colors cursor-pointer shadow-xs">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                            <span>Add Work</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="mb-8 flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+                    <div id="category-filters" class="flex items-center gap-1 p-1 bg-zinc-900/60 border border-zinc-900 rounded-lg">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div id="video-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div class="order-2 md:order-1 relative group">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">About Me</h2>
+                        <button id="bio-edit-btn" type="button" class="hidden opacity-0 group-hover:opacity-100 transition-opacity p-1.5 text-zinc-500 hover:text-zinc-300 rounded hover:bg-zinc-900" title="Edit bio">
+                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                    <p id="about-p1" class="text-base font-light leading-relaxed text-zinc-300 mb-4">
+                        Matt is a Brooklyn based sound engineer and musician.
+                    </p>
+                    <p id="about-p2" class="text-base font-light leading-relaxed text-zinc-400">
+                        With a deep passion for sonic clarity and storytelling, I partner with directors, brands, and creatives to capture and mix high-quality audio that elevates the visual experience. From commercial sets to documentaries, I bring a detail-oriented, collaborative approach to every project.
+                    </p>
+                    <div class="mt-8">
+                        <a href="#contact" class="inline-flex items-center gap-2 pb-1 text-sm border-b border-zinc-700 text-zinc-300 hover:text-white hover:border-white transition-all group/link">
+                            <span>Let's work together</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="w-full max-w-sm mx-auto bg-zinc-900 overflow-hidden rounded-xs border border-zinc-900 relative">
+                        <img id="headshot-img" src="https://i.imgur.com/eIljH9l.jpeg" alt="Matt Leibowitz - Sound Engineer" referrerpolicy="no-referrer" class="w-full h-auto grayscale hover:grayscale-0 transition duration-700 block object-cover aspect-4/5" onerror="this.style.display='none'; document.getElementById('headshot-fallback').classList.remove('hidden');">
+                        <div id="headshot-fallback" class="hidden flex-col items-center justify-center py-24 px-6 text-center bg-zinc-900/80">
+                            <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 mb-3">
+                                <i data-lucide="mic" class="w-7 h-7 stroke-1"></i>
+                            </div>
+                            <h3 id="fallback-name" class="text-sm font-medium text-zinc-300">Matt Leibowitz</h3>
+                            <p id="fallback-role" class="text-xs text-zinc-500 mt-1">Sound Engineer · Brooklyn, NY</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900 max-w-7xl mx-auto w-full">
+            <div class="max-w-2xl">
+                <h2 class="text-xl md:text-2xl font-light tracking-tight text-white mb-4">Get in touch.</h2>
+                <p class="text-zinc-400 mb-10 text-base font-light">
+                    Currently accepting new clients for location sound mixing and audio post-production. Drop a line to discuss your next project.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <a id="contact-email-link" href="mailto:matthew.m.leibowitz@gmail.com" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                            <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors text-zinc-400 group-hover:text-white">
+                                <i data-lucide="mail" class="w-4 h-4"></i>
+                            </div>
+                            <span id="contact-email-text" class="text-sm font-medium">matthew.m.leibowitz@gmail.com</span>
+                        </a>
+                        <button id="copy-email-btn" type="button" class="p-2 text-zinc-500 hover:text-zinc-300 rounded-md hover:bg-zinc-900 transition-colors" title="Copy email">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                        <span id="copied-badge" class="hidden text-xs text-emerald-400 font-medium">Copied!</span>
+                    </div>
+
+                    <a id="contact-ig-link" href="https://instagram.com/iammattmichael" target="_blank" rel="noreferrer" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                        <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors text-zinc-400 group-hover:text-white">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </div>
+                        <span id="contact-ig-handle" class="text-sm font-medium">@iammattmichael</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-zinc-900 text-center text-zinc-600 text-xs tracking-wide">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <p>&copy; <span id="footer-year"></span> <span id="footer-name">Matt Leibowitz</span>. All rights reserved.</p>
+                <button id="footer-lock-btn" type="button" class="p-1 rounded text-zinc-700 hover:text-zinc-400 transition-colors cursor-pointer" title="Owner Access (Shortcut: Cmd+Shift+E)">
+                    <i id="footer-lock-icon" data-lucide="lock" class="w-3 h-3 opacity-30 hover:opacity-100"></i>
+                </button>
+            </div>
+            <p class="text-[11px] text-zinc-700">Sound recording · Boom operation · Dialogue editing · Re-recording mix</p>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 md:p-8 bg-zinc-950/90 backdrop-blur-md">
+        <div id="video-modal-backdrop" class="fixed inset-0" aria-hidden="true"></div>
+        <div class="relative z-10 w-full max-w-4xl bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden shadow-2xl flex flex-col">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-950/60">
+                <div class="min-w-0 pr-4">
+                    <h3 id="modal-video-title" class="text-sm font-medium text-white truncate"></h3>
+                    <p id="modal-video-credit" class="text-xs text-zinc-400 truncate"></p>
+                </div>
+                <button id="close-modal-btn" type="button" class="p-1.5 text-zinc-400 hover:text-white rounded hover:bg-zinc-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="relative w-full aspect-video bg-black flex items-center justify-center">
+                <iframe id="modal-iframe" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
+        <div id="password-backdrop" class="fixed inset-0"></div>
+        <div class="relative z-10 w-full max-w-sm bg-zinc-950 border border-zinc-800 rounded-xl p-6 shadow-2xl space-y-5">
+            <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-white tracking-tight">Owner Authentication</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Site editing is locked to the public</p>
+                    </div>
+                </div>
+                <button id="close-password-btn" type="button" class="p-1 text-zinc-500 hover:text-zinc-300 rounded hover:bg-zinc-900">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <form id="password-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-zinc-400 mb-1.5">Enter Admin Password</label>
+                    <input id="password-input" type="password" required placeholder="Password..." class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-zinc-600 focus:outline-none focus:border-zinc-600">
+                    <p id="password-error" class="hidden mt-2 text-xs text-red-400 flex items-center gap-1">
+                        <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                        <span id="password-error-text">Incorrect password.</span>
+                    </p>
+                </div>
+                <div id="password-default-hint" class="p-2.5 bg-zinc-900/60 border border-zinc-800/80 rounded-md text-[11px] text-zinc-400 leading-relaxed">
+                    Default password: <code class="text-amber-300 font-mono bg-zinc-900 px-1 py-0.5 rounded">matt2026</code>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button id="cancel-password-btn" type="button" class="px-3 py-2 text-xs text-zinc-400 hover:text-white">Cancel</button>
+                    <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 rounded-lg">
+                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                        <span>Unlock Editor</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Management Drawer -->
+    <div id="manage-drawer-container" class="fixed inset-0 z-50 hidden overflow-hidden justify-end">
+        <div id="manage-drawer-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur-xs"></div>
+        <div class="relative w-full max-w-2xl bg-zinc-950 border-l border-zinc-800 h-full flex flex-col shadow-2xl z-10">
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-900 bg-zinc-950">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-base font-medium text-white tracking-tight">Portfolio Site Manager</h2>
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 border border-zinc-800">Live Edit</span>
+                    </div>
+                    <p class="text-xs text-zinc-500 mt-0.5">Add works, update credits, customize hero & bio in real time.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="drawer-exit-public-btn" type="button" class="px-2.5 py-1 text-xs text-zinc-400 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded">
+                        Exit to Public View
+                    </button>
+                    <button id="close-drawer-btn" type="button" class="p-1.5 text-zinc-400 hover:text-white rounded-md hover:bg-zinc-900">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex items-center gap-2 px-6 pt-3 border-b border-zinc-900 bg-zinc-950/80 text-xs font-medium">
+                <button id="tab-btn-videos" class="tab-btn border-b-2 border-white text-white pb-2.5 flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="film" class="w-3.5 h-3.5"></i>
+                    <span>Selected Works (<span id="tab-works-count"></span>)</span>
+                </button>
+                <button id="tab-btn-site" class="tab-btn border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 pb-2.5 flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="user" class="w-3.5 h-3.5"></i>
+                    <span>Bio & Contact</span>
+                </button>
+                <button id="tab-btn-export" class="tab-btn border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 pb-2.5 flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="code" class="w-3.5 h-3.5"></i>
+                    <span>Export & Reset</span>
+                </button>
+                <button id="tab-btn-security" class="tab-btn border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 pb-2.5 flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                    <span>Security</span>
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Videos Tab -->
+                <div id="tab-content-videos">
+                    <div id="video-list-view">
+                        <div class="flex items-center justify-between gap-3 mb-4">
+                            <input id="search-works-input" type="text" placeholder="Search works by title, director, category..." class="flex-1 bg-zinc-900 border border-zinc-800 rounded px-3 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-700">
+                            <button id="start-add-work-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded transition-colors shrink-0 cursor-pointer">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                <span>Add New Work</span>
+                            </button>
+                        </div>
+                        <div id="drawer-video-list" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Add/Edit Video Form -->
+                    <form id="video-edit-form" class="hidden space-y-4 bg-zinc-900/40 p-5 rounded border border-zinc-800">
+                        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+                            <h3 id="form-work-heading" class="text-sm font-medium text-white">Add New Work</h3>
+                            <button id="cancel-edit-work-btn" type="button" class="text-xs text-zinc-400 hover:text-zinc-200">Cancel</button>
+                        </div>
+                        <input type="hidden" id="edit-work-id">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Project Title *</label>
+                            <input id="edit-work-title" type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Director / Production Credit *</label>
+                            <input id="edit-work-credit" type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Platform</label>
+                                <select id="edit-work-platform" class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                                    <option value="youtube">YouTube</option>
+                                    <option value="vimeo">Vimeo</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="tiktok">TikTok</option>
+                                    <option value="facebook">Facebook</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Category</label>
+                                <select id="edit-work-category" class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                                    <option value="commercial">Commercial</option>
+                                    <option value="nyt">NYT Series (Pool)</option>
+                                    <option value="narrative">Narrative & Film</option>
+                                    <option value="editorial">Editorial / Digital</option>
+                                    <option value="sound-design">Sound Mix & Design</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Video / Embed URL *</label>
+                            <input id="edit-work-embed" type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            <p class="text-[11px] text-zinc-500 mt-1">Paste standard YouTube, Vimeo, Instagram, or TikTok URL. It formats automatically.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Pin Priority Order (Optional)</label>
+                            <select id="edit-work-pin" class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                                <option value="none">No Pin (Shuffle with pool)</option>
+                                <option value="1">Pin Slot #1 (Primary feature)</option>
+                                <option value="2">Pin Slot #2 (e.g. Totino's default)</option>
+                                <option value="3">Pin Slot #3 (e.g. Trantolo default)</option>
+                                <option value="4">Pin Slot #4</option>
+                                <option value="5">Pin Slot #5</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 pt-3 border-t border-zinc-800">
+                            <button id="form-delete-work-btn" type="button" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-red-400 hover:text-red-300 hover:bg-red-950/40 border border-red-900/40 rounded">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                <span>Delete Work</span>
+                            </button>
+                            <div class="flex items-center gap-2 ml-auto">
+                                <button id="cancel-edit-work-btn2" type="button" class="px-4 py-2 text-xs text-zinc-400 hover:text-white">Cancel</button>
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 rounded">
+                                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                    <span id="form-submit-text">Save Changes</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Site Tab -->
+                <div id="tab-content-site" class="hidden space-y-4">
+                    <form id="site-profile-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Display Name</label>
+                                <input id="profile-name" type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Role / Title</label>
+                                <input id="profile-role" type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Hero Headline</label>
+                            <textarea id="profile-headline" rows="3" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">About Me — Paragraph 1</label>
+                            <textarea id="profile-about1" rows="2" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">About Me — Paragraph 2</label>
+                            <textarea id="profile-about2" rows="4" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Headshot Image URL</label>
+                            <input id="profile-headshot" type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Contact Email</label>
+                                <input id="profile-email" type="email" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-300 mb-1">Instagram Handle</label>
+                                <input id="profile-ig-handle" type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-300 mb-1">Instagram URL</label>
+                            <input id="profile-ig-url" type="text" class="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                        </div>
+                        <div class="pt-3 flex justify-end">
+                            <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 rounded transition-colors cursor-pointer">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                <span>Update Profile Information</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Export Tab -->
+                <div id="tab-content-export" class="hidden space-y-6">
+                    <div class="p-4 bg-emerald-950/20 border border-emerald-900/40 rounded-lg space-y-2">
+                        <div class="flex items-center gap-2 text-emerald-400 font-medium text-xs">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span>GitHub Pages Ready</span>
+                        </div>
+                        <p class="text-xs text-zinc-300 font-light leading-relaxed">
+                            This single file works directly on GitHub Pages! You can download or copy your updated HTML and paste it right into your GitHub repository's <code class="font-mono text-zinc-200 bg-zinc-900 px-1 py-0.5 rounded">index.html</code>.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-zinc-900/60 border border-zinc-800 rounded-lg space-y-3">
+                        <h3 class="text-sm font-medium text-white">Export Portfolio Data</h3>
+                        <p class="text-xs text-zinc-400 font-light">Backup or export your configuration as a JSON file.</p>
+                        <div class="flex gap-2 flex-wrap pt-2">
+                            <button id="download-json-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-zinc-200 bg-zinc-800 hover:bg-zinc-700 rounded cursor-pointer">
+                                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                <span>Download JSON</span>
+                            </button>
+                            <button id="copy-json-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-zinc-200 bg-zinc-800 hover:bg-zinc-700 rounded cursor-pointer">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy JSON</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-red-950/20 border border-red-900/40 rounded-lg space-y-3">
+                        <h3 class="text-sm font-medium text-red-200">Reset to Original Defaults</h3>
+                        <p class="text-xs text-zinc-400 font-light">Revert all customized videos and settings back to the initial snapshot.</p>
+                        <button id="reset-defaults-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-300 hover:text-white bg-red-950/60 hover:bg-red-900/80 border border-red-900/80 rounded cursor-pointer">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            <span>Reset Everything to Default</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div id="tab-content-security" class="hidden space-y-6">
+                    <div class="p-4 bg-zinc-900/60 border border-zinc-800 rounded-lg space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                                <h3 class="text-sm font-medium text-white">Editor Access Control</h3>
+                            </div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-900/60">PROTECTED</span>
+                        </div>
+                        <p class="text-xs text-zinc-300 font-light leading-relaxed">
+                            The portfolio editor is strictly locked to the public. Prospective clients cannot view or open the editor without entering your admin password.
+                        </p>
+                    </div>
+
+                    <form id="change-password-form" class="p-4 bg-zinc-900/40 border border-zinc-800 rounded-lg space-y-4">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="key-round" class="w-4 h-4 text-amber-400"></i>
+                            <h4 class="text-xs font-medium text-white uppercase tracking-wider">Change Admin Password</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-400 mb-1">New Password</label>
+                                <input id="new-password-input" type="password" required placeholder="Minimum 4 characters..." class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-zinc-400 mb-1">Confirm New Password</label>
+                                <input id="confirm-password-input" type="password" required placeholder="Confirm new password..." class="w-full bg-zinc-950 border border-zinc-800 rounded px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-zinc-600">
+                            </div>
+                            <p id="change-pass-error" class="hidden text-xs text-red-400"></p>
+                        </div>
+                        <div class="pt-2 flex justify-end">
+                            <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium text-white bg-zinc-800 hover:bg-zinc-700 rounded cursor-pointer">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                <span>Save New Password</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="p-4 bg-zinc-900/30 border border-zinc-800/80 rounded-lg flex items-center justify-between">
+                        <div>
+                            <h4 class="text-xs font-medium text-zinc-300">Lock Editor Now</h4>
+                            <p class="text-[11px] text-zinc-500 mt-0.5">Revoke current session and return to visitor view immediately.</p>
+                        </div>
+                        <button id="lock-logout-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded cursor-pointer">
+                            <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                            <span>Lock & Log Out</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-UI Delete Confirmation Modal -->
+            <div id="delete-confirm-modal" class="fixed inset-0 z-60 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-xs">
+                <div id="delete-modal-backdrop" class="fixed inset-0"></div>
+                <div class="relative z-10 w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-lg p-5 shadow-2xl space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-full bg-red-950/80 border border-red-900/60 flex items-center justify-center text-red-400 shrink-0">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-sm font-medium text-white">Remove Project?</h4>
+                            <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
+                                Are you sure you want to remove <span id="delete-project-title" class="text-zinc-100 font-medium"></span> from your portfolio?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-3 border-t border-zinc-800">
+                        <button id="cancel-delete-btn" type="button" class="px-3.5 py-1.5 text-xs text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded cursor-pointer">Cancel</button>
+                        <button id="confirm-delete-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium text-white bg-red-600 hover:bg-red-500 rounded cursor-pointer shadow-xs">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            <span>Yes, Delete Project</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-UI Reset Confirmation Modal -->
+            <div id="reset-confirm-modal" class="fixed inset-0 z-60 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-xs">
+                <div id="reset-modal-backdrop" class="fixed inset-0"></div>
+                <div class="relative z-10 w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-lg p-5 shadow-2xl space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-full bg-red-950/80 border border-red-900/60 flex items-center justify-center text-red-400 shrink-0">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-sm font-medium text-white">Reset to Original Defaults?</h4>
+                            <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
+                                This will revert all customized works, headlines, bio, and settings back to the initial site snapshot.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-2 pt-3 border-t border-zinc-800">
+                        <button id="cancel-reset-modal-btn" type="button" class="px-3.5 py-1.5 text-xs text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded cursor-pointer">Cancel</button>
+                        <button id="confirm-reset-modal-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium text-white bg-red-600 hover:bg-red-500 rounded cursor-pointer shadow-xs">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            <span>Yes, Reset Everything</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast alert -->
+            <div id="drawer-toast" class="hidden absolute bottom-4 left-6 right-6 p-3 bg-zinc-800 border border-zinc-700 text-white text-xs rounded shadow-lg flex items-center justify-between z-20">
+                <span id="drawer-toast-text"></span>
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script>
+      // INITIAL DATA
+      const INITIAL_VIDEOS = [
+        { id: 'union-apresse', title: 'Arthur Jaffa for Union x A.Presse', credit: 'Dir. Mark Anthony Green', platform: 'instagram', embedUrl: 'https://www.instagram.com/reel/DRunzD_ibrh/embed', category: 'commercial', directUrl: 'https://www.instagram.com/reel/DRunzD_ibrh/' },
+        { id: 'nyt-camping', title: 'NYT Cooking - 4 Camping Recipes', credit: 'Dir. Jonathan Bang', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/x-FAcUxFqSk', category: 'nyt', directUrl: 'https://www.youtube.com/watch?v=x-FAcUxFqSk' },
+        { id: 'nyt-dim-sum', title: 'On The Job: Dim Sum', credit: 'Dir. Mantai Chow', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/2f5ihGpBSC0', category: 'nyt', directUrl: 'https://www.youtube.com/watch?v=2f5ihGpBSC0' },
+        { id: 'nyt-plaza', title: 'On The Job: Plaza', credit: 'Dir. Amanda Choy', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/8SXsnHyUX1Q', category: 'nyt', directUrl: 'https://www.youtube.com/watch?v=8SXsnHyUX1Q' },
+        { id: 'nyt-trash', title: 'On The Job: Trash', credit: 'Dir. Amanda Choy', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/9y2WezKYgo4', category: 'nyt', directUrl: 'https://www.youtube.com/watch?v=9y2WezKYgo4' },
+        { id: 'totinos', title: "Totino's", credit: 'Dir. Kris Mercado', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/rXlxIF-sIg4', category: 'commercial', pinnedOrder: 2, directUrl: 'https://www.youtube.com/watch?v=rXlxIF-sIg4' },
+        { id: 'wnba', title: 'WNBA - "Line \'Em Up"', credit: 'Dir. Iris Kim', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/ZhNISI_tJU8', category: 'commercial', directUrl: 'https://www.youtube.com/watch?v=ZhNISI_tJU8' },
+        { id: 'true-religion', title: 'True Religion', credit: 'Dir. Michael Goldberg', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/MbruhWl2sDw', category: 'commercial', directUrl: 'https://www.youtube.com/watch?v=MbruhWl2sDw' },
+        { id: 'away-schoeller', title: 'Away x Martin Schoeller', credit: 'Dir. Martin Schoeller', platform: 'vimeo', embedUrl: 'https://player.vimeo.com/video/847745903', category: 'commercial', directUrl: 'https://vimeo.com/847745903' },
+        { id: 'leslie-jordan', title: 'Leslie Jordan - Get Your Guide', credit: 'Dir. Noah Fowler', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/ls13Wr_SJfo', category: 'commercial', directUrl: 'https://www.youtube.com/watch?v=ls13Wr_SJfo' },
+        { id: 'hot-ones', title: 'Hot Ones - Truth or Dab', credit: 'Producer: Kristen Miller', platform: 'facebook', embedUrl: 'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FFirstWeFeast%2Fvideos%2F8102416429783067%2F&show_text=false&width=auto', category: 'editorial', directUrl: 'https://www.facebook.com/FirstWeFeast/videos/8102416429783067/' },
+        { id: 'evening-song', title: 'An Evening Song (for three voices)', credit: 'Dir. Graham Swon', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/VXaOQWb8a7c', category: 'narrative', directUrl: 'https://www.youtube.com/watch?v=VXaOQWb8a7c' },
+        { id: 'i-got-questions', title: 'I GOT QUESTIONS w/ Big Daddy Kane & Ghostface Killah', credit: 'Dir. Remi Williams & Matasa Williams', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/Whllm-wuOc4', category: 'editorial', directUrl: 'https://www.youtube.com/watch?v=Whllm-wuOc4' },
+        { id: 'listen-to-black-women', title: 'Listen to Black Women', credit: 'MADAMENOIRE', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/X2rREcMBW6o', category: 'editorial', directUrl: 'https://www.youtube.com/watch?v=X2rREcMBW6o' },
+        { id: 'fire-burning', title: '"Fire Burning" - Post Sound Mix and Design', credit: 'Dir. Keaton Ventura', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/QtEaJfTbQH8', category: 'sound-design', directUrl: 'https://www.youtube.com/watch?v=QtEaJfTbQH8' },
+        { id: 'rc-trading', title: 'RC Trading Commercial', credit: 'Maul Media', platform: 'facebook', embedUrl: 'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F755937614107356&show_text=false&width=auto', category: 'commercial', directUrl: 'https://www.facebook.com/reel/755937614107356' },
+        { id: 'best-buy', title: 'Best Buy Commercial (NBC: NFL)', credit: 'Stadium Creative', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/eDNdmfuLNPU', category: 'commercial', directUrl: 'https://www.youtube.com/watch?v=eDNdmfuLNPU' },
+        { id: 'trantolo', title: 'Trantolo & Trantolo Commercial', credit: 'Dir. Lydia Fine and Tony Blahd', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/XFrg0im9Eq0', category: 'commercial', pinnedOrder: 3, directUrl: 'https://www.youtube.com/watch?v=XFrg0im9Eq0' },
+        { id: 'dream-machine', title: 'Dream Machine', credit: 'Dir. Andrew Segreti', platform: 'vimeo', embedUrl: 'https://player.vimeo.com/video/712983978', category: 'narrative', directUrl: 'https://vimeo.com/712983978' },
+        { id: 'cate-blanchett', title: 'Cate Blanchett - The Carnival is Over', credit: 'Dir. Shirin Neshat', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/4nwt46F-NhA', category: 'narrative', directUrl: 'https://www.youtube.com/watch?v=4nwt46F-NhA' },
+        { id: 'morimoto', title: 'Morimoto x Williams-Sonoma', credit: 'Dir. Jan Erting', platform: 'vimeo', embedUrl: 'https://player.vimeo.com/video/1054289372', category: 'commercial', directUrl: 'https://vimeo.com/1054289372' },
+        { id: 'dunkin', title: "Dunkin' x Love Island", credit: 'Dir. Jake Wilson', platform: 'tiktok', embedUrl: 'https://www.tiktok.com/embed/v2/7410820735075224862', category: 'commercial', directUrl: 'https://www.tiktok.com/@dunkin' },
+        { id: 'volvo-xc60', title: 'Volvo XC60 Walkaround with Abdullah', credit: 'Dir. Martin Schoeller', platform: 'youtube', embedUrl: 'https://www.youtube.com/embed/vEHaOUvyfLE', category: 'commercial', directUrl: 'https://www.youtube.com/watch?v=vEHaOUvyfLE' },
+        { id: 'ajinomoto', title: 'Ajinomoto Foods', credit: 'Dir. Alexander McMichael', platform: 'vimeo', embedUrl: 'https://player.vimeo.com/video/863783637', category: 'commercial', directUrl: 'https://vimeo.com/863783637' }
+      ];
+
+      const INITIAL_SITE_CONFIG = {
+        name: 'Matt Leibowitz',
+        role: 'Sound Engineer',
+        heroHeadline: 'Brooklyn based sound engineer and musician specializing in high-quality production audio and post-mixing.',
+        aboutP1: 'Matt is a Brooklyn based sound engineer and musician.',
+        aboutP2: 'With a deep passion for sonic clarity and storytelling, I partner with directors, brands, and creatives to capture and mix high-quality audio that elevates the visual experience. From commercial sets to documentaries, I bring a detail-oriented, collaborative approach to every project.',
+        headshotUrl: 'https://i.imgur.com/eIljH9l.jpeg',
+        email: 'matthew.m.leibowitz@gmail.com',
+        instagramHandle: '@iammattmichael',
+        instagramUrl: 'https://instagram.com/iammattmichael',
+        videos: INITIAL_VIDEOS
+      };
+
+      const STORAGE_KEY = 'matt_leibowitz_portfolio_config_v1';
+      const PASS_HASH_KEY = 'matt_portfolio_admin_password_hash_v1';
+      const AUTH_SESSION_KEY = 'matt_portfolio_authenticated_session_v1';
+      const DEFAULT_PASSWORD = 'matt2026';
+
+      // Load config from localStorage
+      let config = INITIAL_SITE_CONFIG;
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && Array.isArray(parsed.videos)) config = parsed;
+        }
+      } catch (e) {}
+
+      let isAuth = false;
+      try { isAuth = sessionStorage.getItem(AUTH_SESSION_KEY) === 'true'; } catch(e) {}
+      let isEditMode = isAuth;
+      let selectedCategory = 'all';
+      let activeVideos = [];
+      let videoToDelete = null;
+
+      // Hashing helper
+      async function sha256(str) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str.trim()));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      async function verifyPassword(input) {
+        const enteredHash = await sha256(input);
+        const storedHash = localStorage.getItem(PASS_HASH_KEY);
+        if (storedHash) return enteredHash === storedHash;
+        const defaultHash = await sha256(DEFAULT_PASSWORD);
+        return enteredHash === defaultHash;
+      }
+
+      // Shuffle logic
+      function getSmartShuffledVideos(videos) {
+        const nyt = [];
+        const pinned = [];
+        const unpinned = [];
+        videos.forEach(v => {
+          if (v.category === 'nyt') nyt.push({...v});
+          else if (typeof v.pinnedOrder === 'number' && v.pinnedOrder > 0) pinned.push({ item: {...v}, order: v.pinnedOrder });
+          else unpinned.push({...v});
+        });
+
+        for (let i = nyt.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [nyt[i], nyt[j]] = [nyt[j], nyt[i]];
+        }
+        if (nyt.length > 0) pinned.push({ item: nyt.shift(), order: 1 });
+        unpinned.push(...nyt);
+
+        pinned.sort((a, b) => a.order - b.order);
+
+        for (let i = unpinned.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [unpinned[i], unpinned[j]] = [unpinned[j], unpinned[i]];
+        }
+        return [...pinned.map(p => p.item), ...unpinned];
+      }
+
+      function saveConfig() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)); } catch(e) {}
+        renderSite();
+        renderGallery();
+        renderDrawerVideos();
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById('drawer-toast');
+        const txt = document.getElementById('drawer-toast-text');
+        txt.textContent = msg;
+        t.classList.remove('hidden');
+        setTimeout(() => t.classList.add('hidden'), 2500);
+      }
+
+      // Render static texts & profiles
+      function renderSite() {
+        document.getElementById('nav-brand-name').textContent = config.name;
+        document.getElementById('nav-brand-role').textContent = config.role;
+        document.getElementById('hero-headline').textContent = config.heroHeadline;
+        document.getElementById('about-p1').textContent = config.aboutP1;
+        document.getElementById('about-p2').textContent = config.aboutP2;
+        document.getElementById('headshot-img').src = config.headshotUrl;
+        document.getElementById('contact-email-text').textContent = config.email;
+        document.getElementById('contact-email-link').href = 'mailto:' + config.email;
+        document.getElementById('contact-ig-handle').textContent = config.instagramHandle;
+        document.getElementById('contact-ig-link').href = config.instagramUrl;
+        document.getElementById('footer-name').textContent = config.name;
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+        document.getElementById('works-count').textContent = `(${config.videos.length})`;
+        document.getElementById('tab-works-count').textContent = config.videos.length;
+
+        // Sync inputs
+        document.getElementById('profile-name').value = config.name;
+        document.getElementById('profile-role').value = config.role;
+        document.getElementById('profile-headline').value = config.heroHeadline;
+        document.getElementById('profile-about1').value = config.aboutP1;
+        document.getElementById('profile-about2').value = config.aboutP2;
+        document.getElementById('profile-headshot').value = config.headshotUrl;
+        document.getElementById('profile-email').value = config.email;
+        document.getElementById('profile-ig-handle').value = config.instagramHandle;
+        document.getElementById('profile-ig-url').value = config.instagramUrl;
+
+        updateAdminVisibility();
+      }
+
+      function updateAdminVisibility() {
+        const adminElements = [
+          document.getElementById('admin-nav-group'),
+          document.getElementById('mobile-admin-btn'),
+          document.getElementById('mobile-admin-drawer-group'),
+          document.getElementById('hero-edit-btn'),
+          document.getElementById('add-work-btn'),
+          document.getElementById('bio-edit-btn')
+        ];
+
+        adminElements.forEach(el => {
+          if (!el) return;
+          if (isAuth && isEditMode) {
+            el.classList.remove('hidden');
+            if (el.id === 'admin-nav-group') el.classList.add('flex');
+          } else {
+            el.classList.add('hidden');
+            if (el.id === 'admin-nav-group') el.classList.remove('flex');
+          }
+        });
+
+        const footerLockIcon = document.getElementById('footer-lock-icon');
+        if (footerLockIcon) {
+          footerLockIcon.setAttribute('data-lucide', isAuth && isEditMode ? 'unlock' : 'lock');
+          lucide.createIcons();
+        }
+
+        renderGallery();
+      }
+
+      // Categories
+      const CATEGORIES = [
+        { id: 'all', label: 'All' },
+        { id: 'commercial', label: 'Commercial' },
+        { id: 'nyt', label: 'NYT Series' },
+        { id: 'narrative', label: 'Narrative & Film' },
+        { id: 'editorial', label: 'Editorial / Digital' },
+        { id: 'sound-design', label: 'Sound Mix & Design' },
+      ];
+
+      function renderCategoryButtons() {
+        const container = document.getElementById('category-filters');
+        container.innerHTML = '';
+        CATEGORIES.forEach(cat => {
+          const count = cat.id === 'all' ? config.videos.length : config.videos.filter(v => v.category === cat.id).length;
+          if (cat.id !== 'all' && count === 0) return;
+          const isActive = selectedCategory === cat.id;
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer ${
+            isActive ? 'bg-zinc-800 text-white shadow-xs' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+          }`;
+          btn.innerHTML = `${cat.label} <span class="ml-1.5 text-[11px] opacity-60 tabular-nums">${count}</span>`;
+          btn.onclick = () => {
+            selectedCategory = cat.id;
+            renderCategoryButtons();
+            renderGallery();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      // Render video gallery
+      function renderGallery() {
+        const gallery = document.getElementById('video-gallery');
+        gallery.innerHTML = '';
+
+        const filtered = selectedCategory === 'all' ? activeVideos : activeVideos.filter(v => v.category === selectedCategory);
+
+        if (filtered.length === 0) {
+          gallery.innerHTML = '<div class="col-span-2 py-16 text-center text-zinc-500 text-xs">No projects found in this category.</div>';
+          return;
+        }
+
+        filtered.forEach(video => {
+          const isSocial = video.platform === 'instagram' || video.platform === 'facebook' || video.platform === 'tiktok';
+          const card = document.createElement('div');
+          card.className = 'group flex flex-col gap-3 relative';
+
+          card.innerHTML = `
+            <div class="relative w-full aspect-video ${isSocial ? 'bg-black' : 'bg-zinc-900'} overflow-hidden rounded-xs shadow-xs flex items-center justify-center border border-zinc-900/60">
+              <iframe src="${video.embedUrl}" title="${video.title}" loading="lazy" class="${isSocial ? 'w-full h-full border-0' : 'absolute top-0 left-0 w-full h-full border-0'}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="absolute top-2 right-2 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-950/80 backdrop-blur-xs p-1 rounded border border-zinc-800">
+                ${video.pinnedOrder ? `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] text-amber-300 font-medium">Pin #${video.pinnedOrder}</span>` : ''}
+                <button type="button" class="btn-expand p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 cursor-pointer" title="Expand video"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i></button>
+                ${video.directUrl ? `<a href="${video.directUrl}" target="_blank" rel="noreferrer" class="p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800" title="Open source"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
+                ${isAuth && isEditMode ? `<button type="button" class="btn-edit-card p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 cursor-pointer" title="Edit project"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>` : ''}
+              </div>
+            </div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0 flex-1">
+                <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors truncate">${video.title}</h3>
+                <p class="text-xs text-zinc-500 mt-0.5 truncate">${video.credit}</p>
+              </div>
+              ${video.pinnedOrder ? `<span class="text-[10px] uppercase tracking-wider text-zinc-600 shrink-0 font-medium pt-0.5">Pinned #${video.pinnedOrder}</span>` : ''}
+            </div>
+          `;
+
+          // Bind card buttons
+          card.querySelector('.btn-expand').onclick = () => openCinemaModal(video);
+          if (isAuth && isEditMode) {
+            const editBtn = card.querySelector('.btn-edit-card');
+            if (editBtn) editBtn.onclick = () => openEditForm(video);
+          }
+
+          gallery.appendChild(card);
+        });
+
+        lucide.createIcons();
+      }
+
+      // Drawer videos list
+      function renderDrawerVideos() {
+        const list = document.getElementById('drawer-video-list');
+        list.innerHTML = '';
+        const query = document.getElementById('search-works-input').value.toLowerCase();
+        const filtered = config.videos.filter(v => v.title.toLowerCase().includes(query) || v.credit.toLowerCase().includes(query) || v.category.toLowerCase().includes(query));
+
+        filtered.forEach(video => {
+          const row = document.createElement('div');
+          row.className = 'flex items-center justify-between gap-3 p-3 bg-zinc-900/60 border border-zinc-800/80 rounded hover:border-zinc-700 transition-colors';
+          row.innerHTML = `
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-medium text-zinc-200 truncate">${video.title}</span>
+                ${video.pinnedOrder ? `<span class="text-[10px] text-amber-300 font-mono bg-amber-950/60 px-1.5 py-0.2 rounded border border-amber-900/60">Pin #${video.pinnedOrder}</span>` : ''}
+                <span class="text-[10px] uppercase text-zinc-500 font-mono">${video.category}</span>
+              </div>
+              <p class="text-[11px] text-zinc-400 truncate mt-0.5">${video.credit} · <span class="capitalize">${video.platform}</span></p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" class="btn-drawer-edit p-1.5 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 cursor-pointer" title="Edit"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+              <button type="button" class="btn-drawer-del p-1.5 text-zinc-500 hover:text-red-400 rounded hover:bg-zinc-800 cursor-pointer" title="Delete"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </div>
+          `;
+
+          row.querySelector('.btn-drawer-edit').onclick = () => openEditForm(video);
+          row.querySelector('.btn-drawer-del').onclick = () => promptDeleteVideo(video);
+
+          list.appendChild(row);
+        });
+
+        lucide.createIcons();
+      }
+
+      function openCinemaModal(video) {
+        document.getElementById('modal-video-title').textContent = video.title;
+        document.getElementById('modal-video-credit').textContent = video.credit;
+        document.getElementById('modal-iframe').src = video.embedUrl;
+        document.getElementById('video-modal').classList.remove('hidden');
+        document.getElementById('video-modal').classList.add('flex');
+      }
+
+      function closeCinemaModal() {
+        document.getElementById('modal-iframe').src = '';
+        document.getElementById('video-modal').classList.add('hidden');
+        document.getElementById('video-modal').classList.remove('flex');
+      }
+
+      // Password modal controls
+      function openPasswordModal() {
+        document.getElementById('password-input').value = '';
+        document.getElementById('password-error').classList.add('hidden');
+        document.getElementById('password-modal').classList.remove('hidden');
+        document.getElementById('password-modal').classList.add('flex');
+        setTimeout(() => document.getElementById('password-input').focus(), 100);
+      }
+
+      function closePasswordModal() {
+        document.getElementById('password-modal').classList.add('hidden');
+        document.getElementById('password-modal').classList.remove('flex');
+      }
+
+      // Open Edit Form inside Drawer
+      function openEditForm(video = null) {
+        openDrawer();
+        switchTab('videos');
+        document.getElementById('video-list-view').classList.add('hidden');
+        document.getElementById('video-edit-form').classList.remove('hidden');
+
+        if (video) {
+          document.getElementById('form-work-heading').textContent = 'Edit Work';
+          document.getElementById('edit-work-id').value = video.id;
+          document.getElementById('edit-work-title').value = video.title;
+          document.getElementById('edit-work-credit').value = video.credit;
+          document.getElementById('edit-work-platform').value = video.platform;
+          document.getElementById('edit-work-category').value = video.category;
+          document.getElementById('edit-work-embed').value = video.embedUrl;
+          document.getElementById('edit-work-pin').value = video.pinnedOrder ? String(video.pinnedOrder) : 'none';
+          document.getElementById('form-submit-text').textContent = 'Save Changes';
+          document.getElementById('form-delete-work-btn').classList.remove('hidden');
+          document.getElementById('form-delete-work-btn').onclick = () => promptDeleteVideo(video);
+        } else {
+          document.getElementById('form-work-heading').textContent = 'Add New Work';
+          document.getElementById('edit-work-id').value = '';
+          document.getElementById('edit-work-title').value = '';
+          document.getElementById('edit-work-credit').value = 'Dir. ';
+          document.getElementById('edit-work-platform').value = 'youtube';
+          document.getElementById('edit-work-category').value = 'commercial';
+          document.getElementById('edit-work-embed').value = '';
+          document.getElementById('edit-work-pin').value = 'none';
+          document.getElementById('form-submit-text').textContent = 'Add to Portfolio';
+          document.getElementById('form-delete-work-btn').classList.add('hidden');
+        }
+      }
+
+      function closeEditForm() {
+        document.getElementById('video-edit-form').classList.add('hidden');
+        document.getElementById('video-list-view').classList.remove('hidden');
+      }
+
+      function promptDeleteVideo(video) {
+        videoToDelete = video;
+        document.getElementById('delete-project-title').textContent = video.title;
+        document.getElementById('delete-confirm-modal').classList.remove('hidden');
+        document.getElementById('delete-confirm-modal').classList.add('flex');
+      }
+
+      function executeDelete() {
+        if (!videoToDelete) return;
+        config.videos = config.videos.filter(v => v.id !== videoToDelete.id);
+        saveConfig();
+        activeVideos = getSmartShuffledVideos(config.videos);
+        renderGallery();
+        document.getElementById('delete-confirm-modal').classList.add('hidden');
+        document.getElementById('delete-confirm-modal').classList.remove('flex');
+        closeEditForm();
+        showToast(`Removed "${videoToDelete.title}"`);
+        videoToDelete = null;
+      }
+
+      // Drawer Tabs
+      function switchTab(tab) {
+        ['videos', 'site', 'export', 'security'].forEach(t => {
+          document.getElementById('tab-btn-' + t).className = 'tab-btn border-b-2 border-transparent text-zinc-400 hover:text-zinc-200 pb-2.5 flex items-center gap-1.5 cursor-pointer';
+          document.getElementById('tab-content-' + t).classList.add('hidden');
+        });
+        document.getElementById('tab-btn-' + tab).className = 'tab-btn border-b-2 border-white text-white pb-2.5 flex items-center gap-1.5 cursor-pointer';
+        document.getElementById('tab-content-' + tab).classList.remove('hidden');
+      }
+
+      function openDrawer() {
+        document.getElementById('manage-drawer-container').classList.remove('hidden');
+        document.getElementById('manage-drawer-container').classList.add('flex');
+        renderDrawerVideos();
+      }
+
+      function closeDrawer() {
+        document.getElementById('manage-drawer-container').classList.add('hidden');
+        document.getElementById('manage-drawer-container').classList.remove('flex');
+        closeEditForm();
+      }
+
+      // Format URL to embed
+      function formatUrl(url, platform) {
+        const u = url.trim();
+        if (u.includes('embed') || u.includes('player.vimeo.com')) return u;
+        if (platform === 'youtube') {
+          const m = u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|v\/|shorts\/))([\w-]{11})/);
+          if (m && m[1]) return `https://www.youtube.com/embed/${m[1]}`;
+        }
+        if (platform === 'vimeo') {
+          const m = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+          if (m && m[1]) return `https://player.vimeo.com/video/${m[1]}`;
+        }
+        return u;
+      }
+
+      // INITIALIZATION
+      window.addEventListener('DOMContentLoaded', () => {
+        activeVideos = getSmartShuffledVideos(config.videos);
+        renderSite();
+        renderCategoryButtons();
+        renderGallery();
+
+        // Check URL params
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('edit') === 'true' || params.get('admin') === 'true') {
+          if (!isAuth) openPasswordModal();
+          else openDrawer();
+        }
+
+        // Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 20) {
+            navbar.className = 'fixed w-full top-0 z-40 transition-all duration-300 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-900 py-3 shadow-lg shadow-black/20';
+          } else {
+            navbar.className = 'fixed w-full top-0 z-40 transition-all duration-300 bg-transparent py-5';
+          }
+        });
+
+        // Mobile menu
+        const mobileMenu = document.getElementById('mobileMenu');
+        document.getElementById('mobileMenuBtn').onclick = () => { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); };
+        document.getElementById('closeMenuBtn').onclick = () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); };
+        document.querySelectorAll('.mobile-link').forEach(l => l.onclick = () => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); });
+
+        // Shuffle button
+        document.getElementById('shuffle-btn').onclick = () => {
+          activeVideos = getSmartShuffledVideos(config.videos);
+          renderGallery();
+        };
+
+        // Copy email
+        document.getElementById('copy-email-btn').onclick = () => {
+          navigator.clipboard.writeText(config.email);
+          const b = document.getElementById('copied-badge');
+          b.classList.remove('hidden');
+          setTimeout(() => b.classList.add('hidden'), 2000);
+        };
+
+        // Cinema Modal
+        document.getElementById('close-modal-btn').onclick = closeCinemaModal;
+        document.getElementById('video-modal-backdrop').onclick = closeCinemaModal;
+
+        // Admin Auth triggers
+        const handleAdminTrigger = () => {
+          if (!isAuth) openPasswordModal();
+          else {
+            isEditMode = !isEditMode;
+            updateAdminVisibility();
+            if (isEditMode) openDrawer();
+          }
+        };
+
+        document.getElementById('footer-lock-btn').onclick = handleAdminTrigger;
+        document.getElementById('open-editor-btn').onclick = () => { if (isAuth) openDrawer(); else openPasswordModal(); };
+        document.getElementById('mobile-admin-btn').onclick = () => { if (isAuth) openDrawer(); else openPasswordModal(); };
+        document.getElementById('mobile-open-manager-btn').onclick = () => { mobileMenu.classList.add('hidden'); openDrawer(); };
+        document.getElementById('hero-edit-btn').onclick = openDrawer;
+        document.getElementById('bio-edit-btn').onclick = openDrawer;
+        document.getElementById('add-work-btn').onclick = () => openEditForm(null);
+        document.getElementById('start-add-work-btn').onclick = () => openEditForm(null);
+        document.getElementById('search-works-input').oninput = renderDrawerVideos;
+
+        // Exit Admin button
+        const handleExitAdmin = () => {
+          isEditMode = false;
+          closeDrawer();
+          updateAdminVisibility();
+        };
+        document.getElementById('exit-admin-btn').onclick = handleExitAdmin;
+        document.getElementById('drawer-exit-public-btn').onclick = handleExitAdmin;
+        document.getElementById('mobile-exit-admin-btn').onclick = handleExitAdmin;
+
+        // Password Modal submit
+        document.getElementById('password-form').onsubmit = async (e) => {
+          e.preventDefault();
+          const p = document.getElementById('password-input').value;
+          const valid = await verifyPassword(p);
+          if (valid) {
+            isAuth = true;
+            isEditMode = true;
+            try { sessionStorage.setItem(AUTH_SESSION_KEY, 'true'); } catch(e) {}
+            closePasswordModal();
+            updateAdminVisibility();
+            openDrawer();
+            showToast('Editor unlocked');
+          } else {
+            document.getElementById('password-error').classList.remove('hidden');
+          }
+        };
+        document.getElementById('close-password-btn').onclick = closePasswordModal;
+        document.getElementById('cancel-password-btn').onclick = closePasswordModal;
+        document.getElementById('password-backdrop').onclick = closePasswordModal;
+
+        // Drawer Tabs
+        document.getElementById('tab-btn-videos').onclick = () => { switchTab('videos'); closeEditForm(); };
+        document.getElementById('tab-btn-site').onclick = () => switchTab('site');
+        document.getElementById('tab-btn-export').onclick = () => switchTab('export');
+        document.getElementById('tab-btn-security').onclick = () => switchTab('security');
+        document.getElementById('close-drawer-btn').onclick = closeDrawer;
+        document.getElementById('manage-drawer-backdrop').onclick = closeDrawer;
+        document.getElementById('cancel-edit-work-btn').onclick = closeEditForm;
+        document.getElementById('cancel-edit-work-btn2').onclick = closeEditForm;
+
+        // Save Work Form
+        document.getElementById('video-edit-form').onsubmit = (e) => {
+          e.preventDefault();
+          const id = document.getElementById('edit-work-id').value;
+          const title = document.getElementById('edit-work-title').value.trim();
+          const credit = document.getElementById('edit-work-credit').value.trim();
+          const platform = document.getElementById('edit-work-platform').value;
+          const category = document.getElementById('edit-work-category').value;
+          const embedInput = document.getElementById('edit-work-embed').value.trim();
+          const pinVal = document.getElementById('edit-work-pin').value;
+          const pinnedOrder = pinVal === 'none' ? undefined : parseInt(pinVal, 10);
+          const embedUrl = formatUrl(embedInput, platform);
+
+          const itemData = {
+            id: id || 'work-' + Date.now(),
+            title, credit, platform, category, embedUrl, pinnedOrder,
+            directUrl: embedInput
+          };
+
+          if (id) {
+            config.videos = config.videos.map(v => v.id === id ? itemData : v);
+            showToast('Work updated');
+          } else {
+            config.videos.unshift(itemData);
+            showToast('New work added');
+          }
+
+          saveConfig();
+          activeVideos = getSmartShuffledVideos(config.videos);
+          renderCategoryButtons();
+          renderGallery();
+          closeEditForm();
+        };
+
+        // Delete Confirm Modal
+        document.getElementById('confirm-delete-btn').onclick = executeDelete;
+        document.getElementById('cancel-delete-btn').onclick = () => {
+          document.getElementById('delete-confirm-modal').classList.add('hidden');
+          videoToDelete = null;
+        };
+
+        // Profile Form
+        document.getElementById('site-profile-form').onsubmit = (e) => {
+          e.preventDefault();
+          config.name = document.getElementById('profile-name').value.trim();
+          config.role = document.getElementById('profile-role').value.trim();
+          config.heroHeadline = document.getElementById('profile-headline').value.trim();
+          config.aboutP1 = document.getElementById('profile-about1').value.trim();
+          config.aboutP2 = document.getElementById('profile-about2').value.trim();
+          config.headshotUrl = document.getElementById('profile-headshot').value.trim();
+          config.email = document.getElementById('profile-email').value.trim();
+          config.instagramHandle = document.getElementById('profile-ig-handle').value.trim();
+          config.instagramUrl = document.getElementById('profile-ig-url').value.trim();
+          saveConfig();
+          showToast('Profile information saved');
+        };
+
+        // Change Password Form
+        document.getElementById('change-password-form').onsubmit = async (e) => {
+          e.preventDefault();
+          const np = document.getElementById('new-password-input').value;
+          const cp = document.getElementById('confirm-password-input').value;
+          const errEl = document.getElementById('change-pass-error');
+          if (np.length < 4) {
+            errEl.textContent = 'Password must be at least 4 characters';
+            errEl.classList.remove('hidden');
+            return;
+          }
+          if (np !== cp) {
+            errEl.textContent = 'Passwords do not match';
+            errEl.classList.remove('hidden');
+            return;
+          }
+          const hash = await sha256(np);
+          localStorage.setItem(PASS_HASH_KEY, hash);
+          errEl.classList.add('hidden');
+          document.getElementById('new-password-input').value = '';
+          document.getElementById('confirm-password-input').value = '';
+          showToast('Admin password updated');
+        };
+
+        // Lock & Log out
+        document.getElementById('lock-logout-btn').onclick = () => {
+          isAuth = false;
+          isEditMode = false;
+          try { sessionStorage.removeItem(AUTH_SESSION_KEY); } catch(e) {}
+          closeDrawer();
+          updateAdminVisibility();
+          showToast('Editor locked');
+        };
+
+        // Export JSON
+        document.getElementById('download-json-btn').onclick = () => {
+          const str = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(config, null, 2));
+          const a = document.createElement('a');
+          a.href = str;
+          a.download = `matt-leibowitz-portfolio-${Date.now()}.json`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        };
+
+        document.getElementById('copy-json-btn').onclick = () => {
+          navigator.clipboard.writeText(JSON.stringify(config, null, 2));
+          showToast('JSON copied to clipboard');
+        };
+
+        // Reset Defaults
+        const resetModal = document.getElementById('reset-confirm-modal');
+        document.getElementById('reset-defaults-btn').onclick = () => {
+          resetModal.classList.remove('hidden');
+          resetModal.classList.add('flex');
+        };
+        document.getElementById('cancel-reset-modal-btn').onclick = () => {
+          resetModal.classList.add('hidden');
+          resetModal.classList.remove('flex');
+        };
+        document.getElementById('confirm-reset-modal-btn').onclick = () => {
+          try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+          config = INITIAL_SITE_CONFIG;
+          saveConfig();
+          activeVideos = getSmartShuffledVideos(config.videos);
+          renderCategoryButtons();
+          renderGallery();
+          resetModal.classList.add('hidden');
+          resetModal.classList.remove('flex');
+          showToast('Reset to original defaults');
+        };
+
+        // Keyboard Shortcut: Cmd+Shift+E / Ctrl+Shift+E
+        window.addEventListener('keydown', (e) => {
+          if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'E' || e.key === 'e')) {
+            e.preventDefault();
+            handleAdminTrigger();
+          }
+        });
+
+        lucide.createIcons();
+      });
+    </script>
+</body>
 </html>
