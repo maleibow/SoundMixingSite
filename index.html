@@ -1,318 +1,519 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matt Leibowitz | Brooklyn Sound Engineer & Mixer</title>
+    <meta name="description" content="Portfolio of Matt Leibowitz, a New York and Brooklyn-based sound engineer, mixer, and musician. View sound work for WNBA, True Religion, Hot Ones, and more.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E148NK2K26"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-import { useState, useEffect, useCallback } from 'react';
-import { SiteConfig, VideoItem } from './types';
-import { INITIAL_SITE_CONFIG } from './data/defaultData';
-import { getSmartShuffledVideos } from './utils/shuffle';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { WorkGallery } from './components/WorkGallery';
-import { About } from './components/About';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
-import { VideoModal } from './components/VideoModal';
-import { ManageDrawer } from './components/ManageDrawer';
-import { PasswordModal } from './components/PasswordModal';
+      gtag('config', 'G-E148NK2K26');
+    </script>
 
-const STORAGE_KEY = 'matt_leibowitz_portfolio_config_v1';
-const AUTH_SESSION_KEY = 'matt_portfolio_authenticated_session_v1';
-const ADMIN_MODE_KEY = 'matt_portfolio_admin_mode_v1';
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-export default function App() {
-  // Load initial config from localStorage or defaults
-  const [config, setConfig] = useState<SiteConfig>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed && Array.isArray(parsed.videos)) {
-          return parsed;
-        }
-      }
-    } catch {
-      // Fallback
+    <!-- SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Matt Leibowitz",
+      "jobTitle": "Sound Engineer",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brooklyn",
+        "addressRegion": "NY"
+      },
+      "email": "matthew.m.leibowitz@gmail.com",
+      "sameAs": [
+        "https://instagram.com/iammattmichael"
+      ]
     }
-    return INITIAL_SITE_CONFIG;
-  });
+    </script>
+</head>
+<body class="font-sans text-zinc-300 bg-zinc-950 min-h-screen selection:bg-zinc-700 selection:text-white antialiased">
 
-  // Track if content was customized relative to defaults
-  const [isCustomized, setIsCustomized] = useState(false);
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
+            <a href="#home" class="group flex flex-col">
+                <span class="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-zinc-300 transition-colors">
+                    Matt Leibowitz
+                </span>
+                <span class="text-xs font-medium tracking-widest uppercase text-zinc-500 mt-0.5">Sound Engineer</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide">
+                <a href="#work" class="text-zinc-400 hover:text-white transition-colors">Work</a>
+                <a href="#about" class="text-zinc-400 hover:text-white transition-colors">About</a>
+                <a href="#contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
+            </div>
 
-  // Authentication state (requires password verification)
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    try {
-      return sessionStorage.getItem(AUTH_SESSION_KEY) === 'true';
-    } catch {
-      return false;
-    }
-  });
-
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-
-  // Edit Mode state (only active when authenticated AND edit mode enabled)
-  const [isEditMode, setIsEditMode] = useState<boolean>(() => {
-    try {
-      const isAuth = sessionStorage.getItem(AUTH_SESSION_KEY) === 'true';
-      if (!isAuth) return false;
-      const stored = localStorage.getItem(ADMIN_MODE_KEY);
-      return stored !== 'false';
-    } catch {
-      return false;
-    }
-  });
-
-  // Check URL param ?edit=true or ?admin=true on initial load
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('edit') === 'true' || params.get('edit') === '1' || params.get('admin') === 'true') {
-      if (!isAuthenticated) {
-        setIsPasswordModalOpen(true);
-      } else {
-        setIsEditMode(true);
-        setIsManageOpen(true);
-      }
-    }
-  }, [isAuthenticated]);
-
-  // Floating toast message for keyboard shortcuts and mode toggles
-  const [statusToast, setStatusToast] = useState<string | null>(null);
-
-  const triggerToast = (msg: string) => {
-    setStatusToast(msg);
-    setTimeout(() => setStatusToast(null), 3000);
-  };
-
-  // Trigger entering or toggling edit mode
-  const handleRequestEditMode = useCallback(() => {
-    if (!isAuthenticated) {
-      // Must authenticate with password first
-      setIsPasswordModalOpen(true);
-    } else {
-      // Already authenticated, toggle edit mode on/off
-      setIsEditMode((prev) => {
-        const next = !prev;
-        try {
-          localStorage.setItem(ADMIN_MODE_KEY, String(next));
-        } catch {
-          // Ignore
-        }
-        triggerToast(
-          next
-            ? 'Edit Mode enabled (Update controls visible)'
-            : 'Public View mode (All edit buttons hidden)'
-        );
-        return next;
-      });
-    }
-  }, [isAuthenticated]);
-
-  // Called when password is verified successfully
-  const handlePasswordSuccess = () => {
-    setIsAuthenticated(true);
-    try {
-      sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
-      localStorage.setItem(ADMIN_MODE_KEY, 'true');
-    } catch {
-      // Ignore
-    }
-    setIsEditMode(true);
-    setIsManageOpen(true);
-    triggerToast('Editor unlocked. Edit mode active.');
-  };
-
-  // Lock and log out completely
-  const handleLockAndExit = () => {
-    setIsAuthenticated(false);
-    setIsEditMode(false);
-    setIsManageOpen(false);
-    try {
-      sessionStorage.removeItem(AUTH_SESSION_KEY);
-      localStorage.removeItem(ADMIN_MODE_KEY);
-    } catch {
-      // Ignore
-    }
-    triggerToast('Editor locked. Public view active.');
-  };
-
-  // Keyboard shortcut: Cmd+Shift+E or Ctrl+Shift+E
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'E' || e.key === 'e')) {
-        e.preventDefault();
-        handleRequestEditMode();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleRequestEditMode]);
-
-  // Active video list for gallery (smart shuffled with pinned items)
-  const [activeVideos, setActiveVideos] = useState<VideoItem[]>([]);
-
-  // Modal & Drawer UI states
-  const [selectedModalVideo, setSelectedModalVideo] = useState<VideoItem | null>(null);
-  const [isManageOpen, setIsManageOpen] = useState(false);
-  const [editingVideoItem, setEditingVideoItem] = useState<VideoItem | null>(null);
-
-  // Shuffle implementation
-  const runSmartShuffle = useCallback((videosToShuffle: VideoItem[]) => {
-    const shuffled = getSmartShuffledVideos(videosToShuffle);
-    setActiveVideos(shuffled);
-  }, []);
-
-  // Check customized state
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      setIsCustomized(Boolean(saved));
-    } catch {
-      setIsCustomized(false);
-    }
-  }, [config]);
-
-  // Initial smart shuffle on mount or when config.videos change
-  useEffect(() => {
-    runSmartShuffle(config.videos);
-  }, [config.videos, runSmartShuffle]);
-
-  // Handle saving updated config
-  const handleSaveConfig = (newConfig: SiteConfig) => {
-    setConfig(newConfig);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
-      setIsCustomized(true);
-    } catch {
-      // Ignore
-    }
-    runSmartShuffle(newConfig.videos);
-  };
-
-  // Reset to original defaults
-  const handleResetToDefaults = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // Ignore
-    }
-    setConfig(INITIAL_SITE_CONFIG);
-    setIsCustomized(false);
-    runSmartShuffle(INITIAL_SITE_CONFIG.videos);
-  };
-
-  const handleEditSpecificVideo = (video: VideoItem) => {
-    if (!isAuthenticated) {
-      setIsPasswordModalOpen(true);
-      return;
-    }
-    setEditingVideoItem(video);
-    setIsManageOpen(true);
-  };
-
-  const handleAddNewVideo = () => {
-    if (!isAuthenticated) {
-      setIsPasswordModalOpen(true);
-      return;
-    }
-    setEditingVideoItem(null);
-    setIsManageOpen(true);
-  };
-
-  return (
-    <div className="font-sans text-zinc-300 bg-zinc-950 min-h-screen selection:bg-zinc-700 selection:text-white antialiased flex flex-col justify-between">
-      {/* Top Navbar */}
-      <Navbar
-        name={config.name}
-        role={config.role}
-        isEditMode={isAuthenticated && isEditMode}
-        onOpenManage={() => {
-          setEditingVideoItem(null);
-          setIsManageOpen(true);
-        }}
-        onToggleEditMode={handleRequestEditMode}
-        isCustomized={isCustomized}
-      />
-
-      <main className="flex-1">
-        {/* Hero Section */}
-        <Hero
-          headline={config.heroHeadline}
-          onEditHeadline={isAuthenticated && isEditMode ? () => setIsManageOpen(true) : undefined}
-        />
-
-        {/* Selected Work Section */}
-        <WorkGallery
-          videos={activeVideos}
-          isEditMode={isAuthenticated && isEditMode}
-          onShuffle={() => runSmartShuffle(config.videos)}
-          onAddNewVideo={handleAddNewVideo}
-          onEditVideo={handleEditSpecificVideo}
-          onExpandVideo={(video) => setSelectedModalVideo(video)}
-        />
-
-        {/* About Section */}
-        <About
-          name={config.name}
-          role={config.role}
-          aboutP1={config.aboutP1}
-          aboutP2={config.aboutP2}
-          headshotUrl={config.headshotUrl}
-          onEditBio={isAuthenticated && isEditMode ? () => setIsManageOpen(true) : undefined}
-        />
-
-        {/* Contact Section */}
-        <Contact
-          email={config.email}
-          instagramHandle={config.instagramHandle}
-          instagramUrl={config.instagramUrl}
-          onEditContact={isAuthenticated && isEditMode ? () => setIsManageOpen(true) : undefined}
-        />
-      </main>
-
-      {/* Footer */}
-      <Footer
-        name={config.name}
-        isEditMode={isAuthenticated && isEditMode}
-        onToggleEditMode={handleRequestEditMode}
-      />
-
-      {/* Fullscreen Video Modal */}
-      <VideoModal
-        video={selectedModalVideo}
-        onClose={() => setSelectedModalVideo(null)}
-      />
-
-      {/* Password Modal for Owner Authentication */}
-      <PasswordModal
-        isOpen={isPasswordModalOpen}
-        onClose={() => setIsPasswordModalOpen(false)}
-        onSuccess={handlePasswordSuccess}
-      />
-
-      {/* Management Drawer (Edit & Update Site) */}
-      <ManageDrawer
-        isOpen={isManageOpen && isAuthenticated}
-        onClose={() => {
-          setIsManageOpen(false);
-          setEditingVideoItem(null);
-        }}
-        config={config}
-        onSaveConfig={handleSaveConfig}
-        onResetToDefaults={handleResetToDefaults}
-        editingVideoItem={editingVideoItem}
-        onClearEditingVideo={() => setEditingVideoItem(null)}
-        onExitEditMode={handleLockAndExit}
-      />
-
-      {/* Notification Toast for Mode Switches */}
-      {statusToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-zinc-900 border border-zinc-700 text-zinc-100 px-4 py-2.5 rounded-lg shadow-xl text-xs flex items-center gap-2 animate-fade-in">
-          <div className="w-2 h-2 rounded-full bg-amber-400" />
-          <span>{statusToast}</span>
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuBtn" class="md:hidden text-zinc-300 hover:text-white">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
-      )}
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-zinc-950 z-40 hidden flex-col items-center justify-center gap-8 text-2xl font-light">
+        <button id="closeMenuBtn" class="absolute top-6 right-6 text-zinc-400 hover:text-white">
+            <i data-lucide="x"></i>
+        </button>
+        <a href="#work" class="mobile-link text-zinc-300 hover:text-white">Work</a>
+        <a href="#about" class="mobile-link text-zinc-300 hover:text-white">About</a>
+        <a href="#contact" class="mobile-link text-zinc-300 hover:text-white">Contact</a>
     </div>
-  );
-}
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-8 md:pt-32 md:pb-12 px-6 md:px-8 max-w-7xl mx-auto">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight leading-snug max-w-3xl text-zinc-100">
+            Brooklyn based sound engineer and musician specializing in high-quality production audio and post-mixing.
+        </h1>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8">
+                <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">Selected Work</h2>
+            </div>
+            
+            <div id="video-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+                
+                <!-- Instagram Reel by Mark Anthony Green -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-black overflow-hidden shadow-sm flex items-center justify-center">
+                        <iframe src="https://www.instagram.com/reel/DRunzD_ibrh/embed" title="Instagram Reel by Mark Anthony Green" loading="lazy" class="w-full h-full border-0" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Arthur Jaffa for Union x A.Presse</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Mark Anthony Green</p>
+                    </div>
+                </div>
+
+                <!-- NYT Cooking - 4 Camping Recipes (Part of NYT Pool) -->
+                <div class="group flex flex-col gap-3" data-category="nyt">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/x-FAcUxFqSk" title="NYT Cooking - 4 Camping Recipes" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">NYT Cooking - 4 Camping Recipes</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Jonathan Bang</p>
+                    </div>
+                </div>
+
+                <!-- On The Job: Dim Sum -->
+                <div class="group flex flex-col gap-3" data-category="nyt">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/2f5ihGpBSC0" title="On The Job: Dim Sum" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">On The Job: Dim Sum</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Mantai Chow</p>
+                    </div>
+                </div>
+
+                <!-- On The Job: Plaza -->
+                <div class="group flex flex-col gap-3" data-category="nyt">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/8SXsnHyUX1Q" title="On The Job: Plaza" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">On The Job: Plaza</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Amanda Choy</p>
+                    </div>
+                </div>
+
+                <!-- On The Job: Trash -->
+                <div class="group flex flex-col gap-3" data-category="nyt">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/9y2WezKYgo4" title="On The Job: Trash" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">On The Job: Trash</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Amanda Choy</p>
+                    </div>
+                </div>
+
+                <!-- Totino's Commercial (PINNED #2) -->
+                <div class="group flex flex-col gap-3" data-pinned="2">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/rXlxIF-sIg4" title="Totino's Commercial" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Totino's</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Kris Mercado</p>
+                    </div>
+                </div>
+
+                <!-- WNBA Commercial -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/ZhNISI_tJU8" title="WNBA Commercial" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">WNBA - "Line 'Em Up"</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Iris Kim</p>
+                    </div>
+                </div>
+
+                <!-- True Religion Campaign -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/MbruhWl2sDw" title="True Religion Campaign" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">True Religion</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Michael Goldberg</p>
+                    </div>
+                </div>
+
+                <!-- Away x Martin Schoeller -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://player.vimeo.com/video/847745903" title="Away x Martin Schoeller" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Away x Martin Schoeller</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Martin Schoeller</p>
+                    </div>
+                </div>
+
+                <!-- Leslie Jordan Feature -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/ls13Wr_SJfo" title="Leslie Jordan Feature" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Leslie Jordan - Get Your Guide</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Noah Fowler</p>
+                    </div>
+                </div>
+
+                <!-- Hot Ones - Truth or Dab -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-black overflow-hidden shadow-sm flex items-center justify-center">
+                        <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FFirstWeFeast%2Fvideos%2F8102416429783067%2F&show_text=false&width=auto" title="Hot Ones" loading="lazy" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Hot Ones - Truth or Dab</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Producer: Kristen Miller</p>
+                    </div>
+                </div>
+
+                <!-- An Evening Song -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/VXaOQWb8a7c" title="An Evening Song" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">An Evening Song (for three voices)</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Graham Swon</p>
+                    </div>
+                </div>
+
+                <!-- I GOT QUESTIONS -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/Whllm-wuOc4" title="I GOT QUESTIONS w/ Big Daddy Kane & Ghostface Killah" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">I GOT QUESTIONS w/ Big Daddy Kane & Ghostface Killah</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Remi Williams & Matasa Williams</p>
+                    </div>
+                </div>
+
+                <!-- Listen to Black Women -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/X2rREcMBW6o" title="MADAMENOIRE - Listen to Black Women" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Listen to Black Women</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">MADAMENOIRE</p>
+                    </div>
+                </div>
+
+                <!-- Post Sound Mix and Design -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/QtEaJfTbQH8" title="Post Sound Mix and Design" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">"Fire Burning" - Post Sound Mix and Design</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Keaton Ventura</p>
+                    </div>
+                </div>
+
+                <!-- Facebook Reel -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-black overflow-hidden shadow-sm flex items-center justify-center">
+                        <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F755937614107356&show_text=false&width=auto" title="Facebook Reel" loading="lazy" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">RC Trading Commercial</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Maul Media</p>
+                    </div>
+                </div>
+
+                <!-- Best Buy Commercial -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/eDNdmfuLNPU" title="Best Buy Commercial" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Best Buy Commercial (NBC: NFL)</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Stadium Creative</p>
+                    </div>
+                </div>
+
+                <!-- Trantolo Commercial (PINNED #3) -->
+                <div class="group flex flex-col gap-3" data-pinned="3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/XFrg0im9Eq0" title="Trantolo & Trantolo Commercial" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Trantolo & Trantolo Commercial</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Lydia Fine and Tony Blahd</p>
+                    </div>
+                </div>
+
+                <!-- Dream Machine -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://player.vimeo.com/video/712983978" title="Project by Andrew Segreti" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Dream Machine</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Andrew Segreti</p>
+                    </div>
+                </div>
+
+                <!-- Cate Blanchett -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/4nwt46F-NhA" title="Cate Blanchett - The Carnival is Over" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Cate Blanchett - The Carnival is Over</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Shirin Neshat</p>
+                    </div>
+                </div>
+
+                <!-- Morimoto x Williams-Sonoma -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://player.vimeo.com/video/1054289372" title="Project by Jan Erting" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Morimoto x Williams-Sonoma</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Jan Erting</p>
+                    </div>
+                </div>
+
+                <!-- Dunkin' x Love Island -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-black overflow-hidden shadow-sm flex items-center justify-center">
+                        <iframe src="https://www.tiktok.com/embed/v2/7410820735075224862" title="TikTok Video by Jake Wilson" loading="lazy" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Dunkin' x Love Island</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Jake Wilson</p>
+                    </div>
+                </div>
+
+                <!-- Volvo XC60 Walkaround -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://www.youtube.com/embed/vEHaOUvyfLE" title="Volvo XC60 Walkaround" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Volvo XC60 Walkaround with Abdullah</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Martin Schoeller</p>
+                    </div>
+                </div>
+
+                <!-- Project by Alexander McMichael -->
+                <div class="group flex flex-col gap-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden shadow-sm">
+                        <iframe src="https://player.vimeo.com/video/863783637" title="Project by Alexander McMichael" loading="lazy" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">Ajinomoto Foods</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Dir. Alexander McMichael</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div class="order-2 md:order-1">
+                <h2 class="text-xl md:text-2xl font-light tracking-tight text-white mb-6">About Me</h2>
+                <p class="text-base font-light leading-relaxed text-zinc-300 mb-4">
+                    Matt is a Brooklyn based sound engineer and musician.
+                </p>
+                <p class="text-base font-light leading-relaxed text-zinc-400">
+                    With a deep passion for sonic clarity and storytelling, I partner with directors, brands, and creatives to capture and mix high-quality audio that elevates the visual experience. From commercial sets to documentaries, I bring a detail-oriented, collaborative approach to every project.
+                </p>
+                <div class="mt-8">
+                    <a href="#contact" class="inline-flex items-center gap-2 pb-1 text-sm border-b border-zinc-700 text-zinc-300 hover:text-white hover:border-white transition-all">
+                        Let's work together <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="order-1 md:order-2">
+                <div class="w-full max-w-sm mx-auto bg-zinc-900 overflow-hidden rounded-sm">
+                    <img 
+                        src="https://i.imgur.com/eIljH9l.jpeg" 
+                        alt="Matt Leibowitz - Sound Engineer" 
+                        class="w-full h-auto grayscale hover:grayscale-0 transition duration-700 block"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'flex items-center justify-center py-24 text-zinc-600 font-light text-sm\'>Image currently unavailable</div>';"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900 max-w-7xl mx-auto w-full">
+        <div class="max-w-2xl">
+            <h2 class="text-xl md:text-2xl font-light tracking-tight text-white mb-4">Get in touch.</h2>
+            <p class="text-zinc-400 mb-10 text-base">
+                Currently accepting new clients for location sound mixing and audio post-production. Drop a line to discuss your next project.
+            </p>
+            
+            <div class="space-y-4">
+                <a href="mailto:matthew.m.leibowitz@gmail.com" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                    <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-sm font-medium">matthew.m.leibowitz@gmail.com</span>
+                </a>
+                <a href="https://instagram.com/iammattmichael" target="_blank" rel="noreferrer" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                    <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-sm font-medium">@iammattmichael</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-zinc-900 text-center text-zinc-600 text-xs tracking-wide">
+        <p>&copy; <span id="year"></span> Matt Leibowitz. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.remove('bg-transparent', 'py-5');
+                navbar.classList.add('bg-zinc-950/95', 'backdrop-blur-md', 'border-b', 'border-zinc-900', 'py-3');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-5');
+                navbar.classList.remove('bg-zinc-950/95', 'backdrop-blur-md', 'border-b', 'border-zinc-900', 'py-3');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Pin specific videos and randomize the rest on page load
+        const gallery = document.getElementById('video-gallery');
+        if (gallery) {
+            const videos = Array.from(gallery.children);
+            
+            let nytVideos = [];
+            const pinnedVideos = [];
+            const unpinnedVideos = [];
+            
+            // Separate NYT category, pinned, and unpinned
+            videos.forEach(video => {
+                if (video.getAttribute('data-category') === 'nyt') {
+                    nytVideos.push(video);
+                } else if (video.getAttribute('data-pinned')) {
+                    const pinOrder = video.getAttribute('data-pinned');
+                    pinnedVideos.push({ el: video, order: parseInt(pinOrder) });
+                } else {
+                    unpinnedVideos.push(video);
+                }
+            });
+            
+            // Randomly shuffle the NYT videos to pick one for the top slot
+            for (let i = nytVideos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [nytVideos[i], nytVideos[j]] = [nytVideos[j], nytVideos[i]];
+            }
+            
+            // Set the first randomized NYT video to be pinned at position #1
+            if (nytVideos.length > 0) {
+                const selectedNyt = nytVideos.shift(); // Takes the first one out of the array
+                pinnedVideos.push({ el: selectedNyt, order: 1 });
+            }
+            
+            // Move any remaining NYT videos to the regular unpinned pool
+            unpinnedVideos.push(...nytVideos);
+            
+            // Sort pinned videos exactly by their assigned order (1, 2, 3...)
+            pinnedVideos.sort((a, b) => a.order - b.order);
+            
+            // Randomly shuffle all the unpinned videos
+            for (let i = unpinnedVideos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [unpinnedVideos[i], unpinnedVideos[j]] = [unpinnedVideos[j], unpinnedVideos[i]];
+            }
+            
+            // Clear the gallery and append them back in the new order
+            gallery.innerHTML = '';
+            pinnedVideos.forEach(item => gallery.appendChild(item.el));
+            unpinnedVideos.forEach(video => gallery.appendChild(video));
+        }
+    </script>
+</body>
+</html>
