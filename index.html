@@ -34,6 +34,15 @@
       ::-webkit-scrollbar-track { background: #09090b; }
       ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
       ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+      /* Decorative waveform (matches postmixing.html) */
+      .wave { display: flex; align-items: center; gap: 3px; height: 28px; }
+      .wave span { display: block; width: 2px; border-radius: 1px; background: #52525b; }
+      .wave-anim span { animation: wave 1.6s ease-in-out infinite; transform-origin: center; }
+      @keyframes wave { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+      @media (prefers-reduced-motion: reduce) { .wave-anim span { animation: none; } }
+      .scrollbar-none { scrollbar-width: none; }
+      .scrollbar-none::-webkit-scrollbar { display: none; }
     </style>
 
     <!-- SEO Schema -->
@@ -59,7 +68,7 @@
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full top-0 z-40 transition-all duration-300 bg-transparent py-5">
-        <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
+        <div class="px-6 md:px-8"><div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="#home" class="group flex flex-col focus:outline-none">
                 <span id="nav-brand-name" class="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-zinc-300 transition-colors">
                     Matt Leibowitz
@@ -69,7 +78,7 @@
             
             <!-- Desktop Nav -->
             <div class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide">
-                <a href="#work" class="text-zinc-400 hover:text-white transition-colors">Work</a>
+                <a href="#work" class="text-zinc-400 hover:text-white transition-colors">Production</a>
                 <a href="postmixing.html" class="text-zinc-400 hover:text-white transition-colors">Post Sound</a>
                 <a href="#about" class="text-zinc-400 hover:text-white transition-colors">About</a>
                 <a href="#contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
@@ -97,7 +106,7 @@
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
-        </div>
+        </div></div>
     </nav>
 
     <!-- Mobile Nav Overlay -->
@@ -105,7 +114,7 @@
         <button id="closeMenuBtn" class="absolute top-6 right-6 text-zinc-400 hover:text-white p-2">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
-        <a href="#work" class="mobile-link text-zinc-300 hover:text-white">Work</a>
+        <a href="#work" class="mobile-link text-zinc-300 hover:text-white">Production</a>
         <a href="postmixing.html" class="mobile-link text-zinc-300 hover:text-white">Post Sound</a>
         <a href="#about" class="mobile-link text-zinc-300 hover:text-white">About</a>
         <a href="#contact" class="mobile-link text-zinc-300 hover:text-white">Contact</a>
@@ -125,19 +134,60 @@
     <!-- Main Content -->
     <main class="flex-1">
         <!-- Hero Section -->
-        <section id="home" class="pt-28 pb-8 md:pt-32 md:pb-12 px-6 md:px-8 max-w-7xl mx-auto group relative">
+        <section id="home" class="pt-28 pb-10 md:pt-32 md:pb-14 px-6 md:px-8">
+          <div class="max-w-7xl mx-auto group relative">
             <div class="inline-flex items-center gap-1 p-1 mb-8 bg-zinc-900/60 border border-zinc-900 rounded-lg text-xs font-medium">
                 <span class="px-3 py-1.5 rounded-md bg-zinc-800 text-white shadow-xs">Production Sound</span>
                 <a href="postmixing.html" class="px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all">Post Sound</a>
             </div>
-            <div class="flex items-start justify-between gap-4">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+              <div class="flex items-start gap-4">
                 <h1 id="hero-headline" class="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight leading-snug max-w-3xl text-zinc-100 text-balance">
                     Brooklyn based sound engineer and musician specializing in high-quality production audio and post-mixing.
                 </h1>
                 <button id="hero-edit-btn" type="button" class="hidden opacity-0 group-hover:opacity-100 transition-opacity p-2 text-zinc-500 hover:text-zinc-300 rounded hover:bg-zinc-900 shrink-0" title="Edit headline">
                     <i data-lucide="pencil" class="w-4 h-4"></i>
                 </button>
+              </div>
+              <div class="wave wave-anim shrink-0" aria-hidden="true" id="hero-wave"></div>
             </div>
+
+            <!-- Services -->
+            <dl class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-900 border border-zinc-900 rounded-xs overflow-hidden">
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="sliders-vertical" class="w-4 h-4 text-zinc-500"></i>Production Mixing</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Multitrack location recording for commercials, docs, and narrative.</dd>
+                </div>
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="mic" class="w-4 h-4 text-zinc-500"></i>Boom &amp; Wireless</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Clean dialogue from boom and lavs, placed so they stay out of frame.</dd>
+                </div>
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="users" class="w-4 h-4 text-zinc-500"></i>On-Set Partner</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Calm and quick to work with directors, talent, and crew.</dd>
+                </div>
+                <a href="postmixing.html" class="group/svc bg-zinc-950 hover:bg-zinc-900/60 p-5 transition-colors">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="audio-waveform" class="w-4 h-4 text-zinc-500"></i>Post Sound<i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-zinc-600 group-hover/svc:text-white transition-colors"></i></dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Mixing, sound design, and dialogue editing once picture locks.</dd>
+                </a>
+            </dl>
+
+            <!-- Clients -->
+            <div class="mt-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+                <span class="text-[11px] uppercase tracking-widest text-zinc-600 font-medium shrink-0">Worked with</span>
+                <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-zinc-400">
+                    <li>NYT Cooking</li><li class="text-zinc-700">/</li>
+                    <li>WNBA</li><li class="text-zinc-700">/</li>
+                    <li>Hot Ones</li><li class="text-zinc-700">/</li>
+                    <li>True Religion</li><li class="text-zinc-700">/</li>
+                    <li>Volvo</li><li class="text-zinc-700">/</li>
+                    <li>Best Buy</li><li class="text-zinc-700">/</li>
+                    <li>Williams-Sonoma</li><li class="text-zinc-700">/</li>
+                    <li>Dunkin'</li><li class="text-zinc-700">/</li>
+                    <li>Away</li>
+                </ul>
+            </div>
+          </div>
         </section>
 
         <!-- Work Section -->
@@ -174,9 +224,26 @@
                 </div>
 
                 <!-- Gallery Grid -->
-                <div id="video-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+                <div id="video-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
                     <!-- Populated by JS -->
                 </div>
+            </div>
+        </section>
+
+        <!-- Post Sound Teaser -->
+        <section id="post-teaser" class="px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <a href="postmixing.html" class="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-12 md:py-14">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-widest text-zinc-500 font-medium">Post Sound</span>
+                        <h2 class="mt-2 text-xl md:text-2xl font-light tracking-tight text-white">After the wrap: mixing, sound design, and final masters.</h2>
+                        <p class="mt-2 text-sm font-light text-zinc-400">Fire Burning, brand films, Teen Vogue editorial, and more.</p>
+                    </div>
+                    <span class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-zinc-950 bg-zinc-100 group-hover:bg-white rounded-md transition-colors shrink-0 w-fit">
+                        <span>See post work</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+                    </span>
+                </a>
             </div>
         </section>
 
@@ -219,8 +286,8 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900 max-w-7xl mx-auto w-full">
-            <div class="max-w-2xl">
+        <section id="contact" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto"><div class="max-w-2xl">
                 <h2 class="text-xl md:text-2xl font-light tracking-tight text-white mb-4">Get in touch.</h2>
                 <p class="text-zinc-400 mb-10 text-base font-light">
                     Currently accepting new clients for location sound mixing and audio post-production. Drop a line to discuss your next project.
@@ -241,12 +308,12 @@
 
                     <a id="contact-ig-link" href="https://instagram.com/iammattmichael" target="_blank" rel="noreferrer" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
                         <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors text-zinc-400 group-hover:text-white">
-                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                            <i data-lucide="at-sign" class="w-4 h-4"></i>
                         </div>
                         <span id="contact-ig-handle" class="text-sm font-medium">@iammattmichael</span>
                     </a>
                 </div>
-            </div>
+            </div></div>
         </section>
     </main>
 
@@ -864,6 +931,34 @@
         });
       }
 
+      function escapeHtml(str) {
+        return String(str ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      // Thumbnail for YouTube / Vimeo cards (others load their embed directly)
+      function getThumbUrl(video) {
+        const u = video.embedUrl || '';
+        if (video.platform === 'youtube') {
+          const m = u.match(/embed\/([\w-]{11})/);
+          if (m) return `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg`;
+        }
+        if (video.platform === 'vimeo') {
+          const m = u.match(/video\/(\d+)/);
+          if (m) return `https://vumbnail.com/${m[1]}.jpg`;
+        }
+        return '';
+      }
+
+      // Deterministic pseudo-waveform bars
+      function waveBars(seed, n, maxH) {
+        let x = seed, out = '';
+        for (let i = 0; i < n; i++) {
+          x = (x * 9301 + 49297) % 233280;
+          out += `<span style="height:${Math.round(maxH * (0.25 + 0.75 * (x / 233280)))}px;animation-delay:${(i % 7) * 0.12}s"></span>`;
+        }
+        return out;
+      }
+
       // Render video gallery
       function renderGallery() {
         const gallery = document.getElementById('video-gallery');
@@ -872,20 +967,34 @@
         const filtered = selectedCategory === 'all' ? activeVideos : activeVideos.filter(v => v.category === selectedCategory);
 
         if (filtered.length === 0) {
-          gallery.innerHTML = '<div class="col-span-2 py-16 text-center text-zinc-500 text-xs">No projects found in this category.</div>';
+          gallery.innerHTML = '<div class="col-span-full py-16 text-center text-zinc-500 text-xs">No projects found in this category.</div>';
           return;
         }
 
         filtered.forEach(video => {
           const isSocial = video.platform === 'instagram' || video.platform === 'facebook' || video.platform === 'tiktok';
+          const thumb = getThumbUrl(video);
+          const catLabel = (CATEGORIES.find(c => c.id === video.category) || {}).label || '';
           const card = document.createElement('div');
           card.className = 'group flex flex-col gap-3 relative';
 
+          const playerHtml = `<iframe src="${video.embedUrl}" title="${escapeHtml(video.title)}" loading="lazy" class="${isSocial ? 'w-full h-full border-0' : 'absolute top-0 left-0 w-full h-full border-0'}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+          const facadeHtml = `
+            <button type="button" class="btn-play group/play absolute inset-0 w-full h-full cursor-pointer" aria-label="Play ${escapeHtml(video.title)}">
+              <img src="${thumb}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/play:opacity-100 group-hover/play:scale-[1.02] transition duration-500">
+              <span class="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent"></span>
+              <span class="absolute inset-0 flex items-center justify-center">
+                <span class="w-14 h-14 rounded-full bg-zinc-950/70 backdrop-blur-sm border border-zinc-700 flex items-center justify-center text-white group-hover/play:bg-white group-hover/play:text-zinc-950 transition-colors">
+                  <i data-lucide="play" class="w-5 h-5 ml-0.5 fill-current"></i>
+                </span>
+              </span>
+            </button>`;
+
           card.innerHTML = `
-            <div class="relative w-full aspect-video ${isSocial ? 'bg-black' : 'bg-zinc-900'} overflow-hidden rounded-xs shadow-xs flex items-center justify-center border border-zinc-900/60">
-              <iframe src="${video.embedUrl}" title="${video.title}" loading="lazy" class="${isSocial ? 'w-full h-full border-0' : 'absolute top-0 left-0 w-full h-full border-0'}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <div class="absolute top-2 right-2 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-950/80 backdrop-blur-xs p-1 rounded border border-zinc-800">
-                ${video.pinnedOrder ? `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] text-amber-300 font-medium">Pin #${video.pinnedOrder}</span>` : ''}
+            <div class="media relative w-full aspect-video ${isSocial ? 'bg-black' : 'bg-zinc-900'} overflow-hidden rounded-xs shadow-xs flex items-center justify-center border border-zinc-900/60">
+              <div class="player absolute inset-0 flex items-center justify-center">${thumb ? facadeHtml : playerHtml}</div>
+              <div class="absolute top-2 right-2 z-10 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-950/80 backdrop-blur-xs p-1 rounded border border-zinc-800">
+                ${video.pinnedOrder && isAuth && isEditMode ? `<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] text-amber-300 font-medium">Pin #${video.pinnedOrder}</span>` : ''}
                 <button type="button" class="btn-expand p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 cursor-pointer" title="Expand video"><i data-lucide="maximize-2" class="w-3.5 h-3.5"></i></button>
                 ${video.directUrl ? `<a href="${video.directUrl}" target="_blank" rel="noreferrer" class="p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800" title="Open source"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>` : ''}
                 ${isAuth && isEditMode ? `<button type="button" class="btn-edit-card p-1 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 cursor-pointer" title="Edit project"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>` : ''}
@@ -893,14 +1002,19 @@
             </div>
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0 flex-1">
-                <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors truncate">${video.title}</h3>
-                <p class="text-xs text-zinc-500 mt-0.5 truncate">${video.credit}</p>
+                <h3 class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors truncate">${escapeHtml(video.title)}</h3>
+                <p class="text-xs text-zinc-500 mt-0.5 truncate">${escapeHtml(video.credit)}</p>
               </div>
-              ${video.pinnedOrder ? `<span class="text-[10px] uppercase tracking-wider text-zinc-600 shrink-0 font-medium pt-0.5">Pinned #${video.pinnedOrder}</span>` : ''}
+              ${catLabel ? `<span class="shrink-0 mt-0.5 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-zinc-500 border border-zinc-800 rounded">${catLabel}</span>` : ''}
             </div>
           `;
 
           // Bind card buttons
+          const playBtn = card.querySelector('.btn-play');
+          if (playBtn) playBtn.onclick = () => {
+            const sep = video.embedUrl.includes('?') ? '&' : '?';
+            card.querySelector('.player').innerHTML = playerHtml.replace(`src="${video.embedUrl}"`, `src="${video.embedUrl}${sep}autoplay=1"`);
+          };
           card.querySelector('.btn-expand').onclick = () => openCinemaModal(video);
           if (isAuth && isEditMode) {
             const editBtn = card.querySelector('.btn-edit-card');
@@ -1072,6 +1186,8 @@
 
       // INITIALIZATION
       window.addEventListener('DOMContentLoaded', () => {
+        const heroWave = document.getElementById('hero-wave');
+        if (heroWave) heroWave.innerHTML = waveBars(7, 28, 28);
         activeVideos = getSmartShuffledVideos(config.videos);
         renderSite();
         renderCategoryButtons();
