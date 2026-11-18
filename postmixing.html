@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Sound | Matt Leibowitz | Brooklyn Re-Recording Mixer & Sound Designer</title>
+    <meta name="description" content="Post-production sound by Matt Leibowitz: re-recording mixing, sound design, and dialogue editing for films, commercials, and editorial work. Based in Brooklyn, NY.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E148NK2K26"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E148NK2K26');
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #09090b; }
+      ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+      /* Decorative waveform used in the hero and the master list */
+      .wave { display: flex; align-items: center; gap: 3px; height: 28px; }
+      .wave span { display: block; width: 2px; border-radius: 1px; background: #3f3f46; }
+      .wave-anim span { animation: wave 1.6s ease-in-out infinite; transform-origin: center; }
+      @keyframes wave { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+      @media (prefers-reduced-motion: reduce) { .wave-anim span { animation: none; } }
+
+      .row-link:hover .row-wave span { background: #a1a1aa; }
+    </style>
+
+    <!-- SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Matt Leibowitz",
+      "jobTitle": "Re-Recording Mixer & Sound Designer",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brooklyn",
+        "addressRegion": "NY"
+      },
+      "email": "matthew.m.leibowitz@gmail.com",
+      "sameAs": [
+        "https://instagram.com/iammattmichael"
+      ]
+    }
+    </script>
+</head>
+<body class="text-zinc-300 bg-zinc-950 min-h-screen selection:bg-zinc-700 selection:text-white antialiased flex flex-col justify-between">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-40 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
+            <a href="index.html" class="group flex flex-col focus:outline-none">
+                <span class="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-zinc-300 transition-colors">Matt Leibowitz</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-zinc-500 mt-0.5">Sound Engineer</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium tracking-wide">
+                <a href="index.html#work" class="text-zinc-400 hover:text-white transition-colors">Production</a>
+                <a href="postmixing.html" class="text-white" aria-current="page">Post Sound</a>
+                <a href="index.html#about" class="text-zinc-400 hover:text-white transition-colors">About</a>
+                <a href="#contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <button id="mobileMenuBtn" class="md:hidden text-zinc-300 hover:text-white p-1" aria-label="Open menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-zinc-950 z-50 hidden flex-col items-center justify-center gap-8 text-2xl font-light">
+        <button id="closeMenuBtn" class="absolute top-6 right-6 text-zinc-400 hover:text-white p-2" aria-label="Close menu">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <a href="index.html#work" class="mobile-link text-zinc-300 hover:text-white">Production</a>
+        <a href="postmixing.html" class="mobile-link text-white">Post Sound</a>
+        <a href="index.html#about" class="mobile-link text-zinc-300 hover:text-white">About</a>
+        <a href="#contact" class="mobile-link text-zinc-300 hover:text-white">Contact</a>
+    </div>
+
+    <main class="flex-1">
+        <!-- Hero -->
+        <section id="home" class="pt-28 pb-10 md:pt-32 md:pb-14 px-6 md:px-8">
+            <div class="max-w-7xl mx-auto">
+            <!-- Production / Post switch -->
+            <div class="inline-flex items-center gap-1 p-1 mb-8 bg-zinc-900/60 border border-zinc-900 rounded-lg text-xs font-medium">
+                <a href="index.html" class="px-3 py-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all">Production Sound</a>
+                <span class="px-3 py-1.5 rounded-md bg-zinc-800 text-white shadow-xs">Post Sound</span>
+            </div>
+
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+                <h1 class="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight leading-snug max-w-3xl text-zinc-100 text-balance">
+                    Post-production sound: mixing, sound design, and dialogue editing for film, commercial, and editorial work.
+                </h1>
+                <div class="wave wave-anim shrink-0" aria-hidden="true" id="hero-wave"></div>
+            </div>
+
+            <!-- Services -->
+            <dl class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-900 border border-zinc-900 rounded-xs overflow-hidden">
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="sliders-vertical" class="w-4 h-4 text-zinc-500"></i>Re-Recording Mix</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Final stereo mixes and print masters for web, broadcast, and festival.</dd>
+                </div>
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="audio-waveform" class="w-4 h-4 text-zinc-500"></i>Sound Design</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Ambiences, effects, and texture that build the world of the picture.</dd>
+                </div>
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="mic-vocal" class="w-4 h-4 text-zinc-500"></i>Dialogue Edit</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Cleanup, noise reduction, and smoothing so every line reads clearly.</dd>
+                </div>
+                <div class="bg-zinc-950 p-5">
+                    <dt class="flex items-center gap-2 text-sm font-medium text-zinc-200"><i data-lucide="package-check" class="w-4 h-4 text-zinc-500"></i>Deliverables</dt>
+                    <dd class="mt-1.5 text-xs text-zinc-500 leading-relaxed">Stems, alternate versions, and masters delivered to spec.</dd>
+                </div>
+            </dl>
+            </div>
+        </section>
+
+        <!-- Featured: Fire Burning -->
+        <section id="featured" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-3">
+                    <div class="yt-facade relative w-full aspect-video bg-zinc-900 overflow-hidden rounded-xs border border-zinc-900/60" data-id="QtEaJfTbQH8" data-title="Fire Burning"></div>
+                </div>
+                <div class="lg:col-span-2">
+                    <span class="text-[11px] uppercase tracking-widest text-zinc-500 font-medium">Featured · Post Sound Mix &amp; Design</span>
+                    <h2 class="mt-3 text-2xl md:text-3xl font-light tracking-tight text-white">Fire Burning</h2>
+                    <p class="mt-1 text-sm text-zinc-500">Dir. Keaton Ventura</p>
+                    <p class="mt-5 text-sm font-light leading-relaxed text-zinc-400">
+                        Full post sound for the film, from the sound design to the final mix.
+                    </p>
+                    <div class="mt-7 flex flex-wrap items-center gap-3">
+                        <a href="https://fireburning.tv" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-zinc-950 bg-zinc-100 hover:bg-white rounded-md transition-colors">
+                            <span>fireburning.tv</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=QtEaJfTbQH8" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-md transition-colors">
+                            <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                            <span>Watch on YouTube</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Mixes (YouTube) -->
+        <section id="work" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8">
+                    <div class="flex items-center gap-3">
+                        <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">Selected Mixes</h2>
+                        <span id="mixes-count" class="text-xs font-mono text-zinc-500 tabular-nums"></span>
+                    </div>
+                    <p class="text-xs text-zinc-500 mt-1">Post mixing and sound design. Click any title to play it here.</p>
+                </div>
+                <div id="yt-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Print Masters (Dropbox) -->
+        <section id="masters" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">Final Mix Masters</h2>
+                            <span id="masters-count" class="text-xs font-mono text-zinc-500 tabular-nums"></span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-1">Full-quality final masters for brands and short films. Each one opens in Dropbox's player.</p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 text-[11px] text-zinc-600"><i data-lucide="headphones" class="w-3.5 h-3.5"></i>Best with headphones</span>
+                </div>
+
+                <ol id="masters-list" class="border-t border-zinc-900">
+                    <!-- Populated by JS -->
+                </ol>
+            </div>
+        </section>
+
+        <!-- Playlist -->
+        <section id="playlist" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+                <div class="lg:col-span-2">
+                    <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">The Full Reel</h2>
+                    <p class="mt-3 text-sm font-light leading-relaxed text-zinc-400">
+                        A longer playlist of post-sound projects. Use the playlist menu in the player to jump between titles.
+                    </p>
+                    <a href="https://www.youtube.com/playlist?list=PLX1W43ZgDnWEC_hHFXOlPFOCdcJUTbIqY" target="_blank" rel="noreferrer" class="mt-6 inline-flex items-center gap-2 pb-1 text-sm border-b border-zinc-700 text-zinc-300 hover:text-white hover:border-white transition-all group/link">
+                        <span>Open playlist on YouTube</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="lg:col-span-3">
+                    <div class="relative w-full aspect-video bg-zinc-900 overflow-hidden rounded-xs border border-zinc-900/60">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLX1W43ZgDnWEC_hHFXOlPFOCdcJUTbIqY" title="Post sound playlist" loading="lazy" class="absolute inset-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editorial / Press -->
+        <section id="editorial" class="py-12 md:py-16 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-xl md:text-2xl font-light tracking-tight text-white">Editorial</h2>
+                    <p class="text-xs text-zinc-500 mt-1">Post sound for Teen Vogue video.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="https://www.teenvogue.com/video/watch/what-does-girl-talk-sound-like" target="_blank" rel="noreferrer" class="group flex flex-col justify-between gap-10 p-6 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-900 hover:border-zinc-800 rounded-xs transition-colors">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-[11px] uppercase tracking-widest text-zinc-500 font-medium">Teen Vogue · Video</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-600 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-light tracking-tight text-zinc-100 group-hover:text-white">What Does Girl Talk Sound Like?</h3>
+                            <p class="mt-1 text-xs text-zinc-500">Watch on teenvogue.com</p>
+                        </div>
+                    </a>
+                    <a href="https://x.com/TeenVogue/status/1002161281711910912" target="_blank" rel="noreferrer" class="group flex flex-col justify-between gap-10 p-6 bg-zinc-900/40 hover:bg-zinc-900 border border-zinc-900 hover:border-zinc-800 rounded-xs transition-colors">
+                        <div class="flex items-start justify-between gap-4">
+                            <span class="text-[11px] uppercase tracking-widest text-zinc-500 font-medium">Teen Vogue · May 2018 Cover</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-zinc-600 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-light tracking-tight text-zinc-100 group-hover:text-white">"Running": Jamal Green, Kat Kerwin &amp; Hadiya Afzal</h3>
+                            <p class="mt-1 text-xs text-zinc-500">Cover video for young candidates running for office · Watch on X</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-16 md:py-20 px-6 md:px-8 border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto"><div class="max-w-2xl">
+                <h2 class="text-xl md:text-2xl font-light tracking-tight text-white mb-4">Need a mix?</h2>
+                <p class="text-zinc-400 mb-10 text-base font-light">
+                    I'm booking post-production sound now, from a single spot to a short film. Send a cut and a deadline and I'll get back to you quickly.
+                </p>
+                <div class="space-y-4">
+                    <a href="mailto:matthew.m.leibowitz@gmail.com?subject=Post%20sound%20inquiry" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                        <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors text-zinc-400 group-hover:text-white">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-sm font-medium">matthew.m.leibowitz@gmail.com</span>
+                    </a>
+                    <a href="https://instagram.com/iammattmichael" target="_blank" rel="noreferrer" class="flex items-center gap-4 text-zinc-300 hover:text-white transition-colors group w-fit">
+                        <div class="w-10 h-10 bg-zinc-900 flex items-center justify-center rounded-full group-hover:bg-zinc-800 transition-colors text-zinc-400 group-hover:text-white">
+                            <i data-lucide="at-sign" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-sm font-medium">@iammattmichael</span>
+                    </a>
+                </div>
+                <a href="index.html" class="mt-10 inline-flex items-center gap-2 pb-1 text-sm border-b border-zinc-700 text-zinc-300 hover:text-white hover:border-white transition-all">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>See production sound work</span>
+                </a>
+            </div></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-zinc-900 text-center text-zinc-600 text-xs tracking-wide">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; <span id="footer-year"></span> Matt Leibowitz. All rights reserved.</p>
+            <p class="text-[11px] text-zinc-700">Re-recording mix · Sound design · Dialogue editing · Deliverables</p>
+        </div>
+    </footer>
+
+    <script>
+      // ---- Content ----------------------------------------------------------
+      // YouTube post work. Titles load automatically from YouTube; the
+      // `title`/`credit` fields below are fallbacks (fill them in to override).
+      const YT_MIXES = [
+        { id: 'Er5H8kaAGGw', title: '', credit: '' },
+        { id: 'W2l4R7dr0Ns', title: '', credit: '' },
+        { id: 'DnMYH6z1F2s', title: '', credit: '' },
+      ];
+
+      // Final masters hosted on Dropbox (large files, so they open in Dropbox's player).
+      const MASTERS = [
+        { year: 2025, title: 'Gather Greene', client: 'With Anna Wolf', type: 'Brand', url: 'https://www.dropbox.com/scl/fi/k7vvxbofq4ez6s25rgwie/GatherGreen_Color_NeedSoundLogo.mp4?rlkey=76mazl4i9w0os445ja8acdeq9&dl=0' },
+        { year: 2023, title: 'Makeshift Society', client: 'Final mix', type: 'Brand', url: 'https://www.dropbox.com/scl/fi/rezsrzmrbgrxv7vq0p6y2/Makeshift-Society_MIX_090623_ML1.mov?rlkey=qvpeo4li6moyqv6uxtuiwxq2l&dl=0' },
+        { year: 2021, title: 'Full In Partners', client: 'Brand film', type: 'Brand', url: 'https://www.dropbox.com/scl/fi/q129wfgyg4rmof6taa635/Full-In_MASTER_111221_ML2.mov?rlkey=7732xr6dwj00qsiibtrx4hyjb&dl=0' },
+        { year: 2021, title: 'Johnny the Dime', client: 'Final mix', type: 'Film', url: 'https://www.dropbox.com/scl/fi/ja46t49uyjgujlfcllzqc/JTD_MASTER_062521_ML1_1.mov?rlkey=1ql41jm63ws43jr5hdplholby&dl=0' },
+        { year: 2020, title: 'Grinding Doubt', client: 'Final mix', type: 'Film', url: 'https://www.dropbox.com/scl/fi/bx1nrgz5wpfac85bzibpu/GD_MASTER_122620_ML1.mov?rlkey=n6eb69kl9qcg789euuvv9qegm&dl=0' },
+        { year: 2018, title: 'LeSportsac — Fall', client: 'With Anna Wolf', type: 'Brand', url: 'https://www.dropbox.com/scl/fi/nylw7b24k41wc8y6mhayn/LeSportsacFall_MASTER_100718_ml1.mov?rlkey=g1d5nu6v2j3x9g1yw65wby8uk&dl=0' },
+      ];
+
+      // ---- Helpers ----------------------------------------------------------
+      const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      // Deterministic pseudo-waveform so each row has its own shape.
+      function waveBars(seed, n, maxH) {
+        let x = seed, out = '';
+        for (let i = 0; i < n; i++) {
+          x = (x * 9301 + 49297) % 233280;
+          const h = Math.round(maxH * (0.25 + 0.75 * (x / 233280)));
+          out += `<span style="height:${h}px"></span>`;
+        }
+        return out;
+      }
+
+      // Lightweight YouTube player: show the thumbnail and load the iframe on click.
+      function mountFacade(el) {
+        const id = el.dataset.id;
+        const title = el.dataset.title || 'Play video';
+        el.innerHTML = `
+          <button type="button" class="group/play absolute inset-0 w-full h-full cursor-pointer" aria-label="Play ${esc(title)}">
+            <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/play:opacity-100 group-hover/play:scale-[1.02] transition duration-500">
+            <span class="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent"></span>
+            <span class="absolute inset-0 flex items-center justify-center">
+              <span class="w-14 h-14 rounded-full bg-zinc-950/70 backdrop-blur-sm border border-zinc-700 flex items-center justify-center text-white group-hover/play:bg-white group-hover/play:text-zinc-950 transition-colors">
+                <i data-lucide="play" class="w-5 h-5 ml-0.5 fill-current"></i>
+              </span>
+            </span>
+          </button>`;
+        el.querySelector('button').onclick = () => {
+          el.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="${esc(title)}" class="absolute inset-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        };
+      }
+
+      // ---- Render: YouTube grid -------------------------------------------
+      function renderYouTube() {
+        const grid = document.getElementById('yt-grid');
+        document.getElementById('mixes-count').textContent = `(${YT_MIXES.length})`;
+        YT_MIXES.forEach((v, i) => {
+          const card = document.createElement('div');
+          card.className = 'group flex flex-col gap-3';
+          card.innerHTML = `
+            <div class="yt-facade relative w-full aspect-video bg-zinc-900 overflow-hidden rounded-xs border border-zinc-900/60" data-id="${v.id}" data-title="${esc(v.title || 'Post mix')}"></div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0 flex-1">
+                <h3 class="yt-title text-sm font-medium text-zinc-200 group-hover:text-white transition-colors truncate">${esc(v.title || 'Post Mix & Sound Design')}</h3>
+                <p class="yt-credit text-xs text-zinc-500 mt-0.5 truncate">${esc(v.credit || 'Post sound')}</p>
+              </div>
+              <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noreferrer" class="p-1 text-zinc-600 hover:text-white rounded hover:bg-zinc-900 shrink-0" title="Open on YouTube"><i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+            </div>`;
+          grid.appendChild(card);
+          mountFacade(card.querySelector('.yt-facade'));
+
+          // Load the real title/channel when no manual title was given.
+          if (!v.title) {
+            fetch(`https://noembed.com/embed?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + v.id)}`)
+              .then(r => r.json())
+              .then(d => {
+                if (!d || !d.title) return;
+                card.querySelector('.yt-title').textContent = d.title;
+                card.querySelector('.yt-facade button')?.setAttribute('aria-label', 'Play ' + d.title);
+                if (!v.credit && d.author_name) card.querySelector('.yt-credit').textContent = d.author_name;
+              })
+              .catch(() => {});
+          }
+        });
+      }
+
+      // ---- Render: masters list -------------------------------------------
+      function renderMasters() {
+        const list = document.getElementById('masters-list');
+        document.getElementById('masters-count').textContent = `(${MASTERS.length})`;
+        MASTERS.forEach((m, i) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <a href="${m.url}" target="_blank" rel="noreferrer" class="row-link group grid grid-cols-[2.5rem_1fr_auto] md:grid-cols-[3.5rem_1fr_10rem_6rem_auto] items-center gap-4 py-5 border-b border-zinc-900 hover:bg-zinc-900/40 transition-colors px-2 -mx-2">
+              <span class="text-xs font-mono text-zinc-600 tabular-nums">${String(i + 1).padStart(2, '0')}</span>
+              <span class="min-w-0">
+                <span class="block text-base md:text-lg font-light tracking-tight text-zinc-200 group-hover:text-white transition-colors truncate">${esc(m.title)}</span>
+                <span class="block text-xs text-zinc-500 mt-0.5 md:hidden">${m.year} · ${esc(m.client)}</span>
+              </span>
+              <span class="hidden md:block text-xs text-zinc-500 truncate">${esc(m.client)}</span>
+              <span class="hidden md:flex items-center gap-2 text-xs text-zinc-500 tabular-nums">
+                <span class="px-1.5 py-0.5 text-[10px] uppercase tracking-wider border border-zinc-800 rounded">${esc(m.type)}</span>${m.year}
+              </span>
+              <span class="flex items-center gap-4">
+                <span class="row-wave wave hidden lg:flex" aria-hidden="true">${waveBars(i * 97 + 13, 22, 22)}</span>
+                <span class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 group-hover:text-white transition-colors">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">Watch</span>
+                </span>
+              </span>
+            </a>`;
+          list.appendChild(li);
+        });
+      }
+
+      // ---- Init -------------------------------------------------------------
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // Hero waveform
+        const hw = document.getElementById('hero-wave');
+        hw.innerHTML = waveBars(7, 28, 28);
+        hw.querySelectorAll('span').forEach((s, i) => { s.style.animationDelay = `${(i % 7) * 0.12}s`; s.style.background = '#52525b'; });
+
+        renderYouTube();
+        renderMasters();
+        document.querySelectorAll('#featured .yt-facade').forEach(mountFacade);
+
+        // Nav background on scroll
+        const navbar = document.getElementById('navbar');
+        const onScroll = () => {
+          if (window.scrollY > 20) {
+            navbar.classList.add('bg-zinc-950/85', 'backdrop-blur-md', 'border-b', 'border-zinc-900', 'py-3');
+            navbar.classList.remove('bg-transparent', 'py-5');
+          } else {
+            navbar.classList.remove('bg-zinc-950/85', 'backdrop-blur-md', 'border-b', 'border-zinc-900', 'py-3');
+            navbar.classList.add('bg-transparent', 'py-5');
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // Mobile menu
+        const menu = document.getElementById('mobileMenu');
+        const open = () => { menu.classList.remove('hidden'); menu.classList.add('flex'); };
+        const close = () => { menu.classList.add('hidden'); menu.classList.remove('flex'); };
+        document.getElementById('mobileMenuBtn').onclick = open;
+        document.getElementById('closeMenuBtn').onclick = close;
+        document.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', close));
+
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+</body>
+</html>
